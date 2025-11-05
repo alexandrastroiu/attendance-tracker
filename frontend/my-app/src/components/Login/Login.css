@@ -18,7 +18,7 @@
 }
 
 .text{
-    color: #3c009d;
+    color: #6419f0;
     font-size: 48px;
     font-weight:700;
 }
@@ -26,7 +26,7 @@
 .underline{
     width:61px;
     height:6px;
-    background: #3c009d;
+    background: #6419f0;
     border-radius: 9px;
 }
 
@@ -74,7 +74,7 @@
     width: 220px;
     height: 59px;
     color: #fff;
-    background: #4c00b4;
+    background: #6419f0;
     border-radius: 50px;
     font-size: 19px;
     font-weight: 700;
