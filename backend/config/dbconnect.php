@@ -12,7 +12,7 @@ try {
     $conn = new PDO("mysql:host=$host;port=$port;dbname=$db_name;charset=utf8", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     // Message for successful connection
-    echo "Connected to $db_name successfully.";
+    // echo "Connected to $db_name successfully.";
 }
 catch (PDOException $e) {
 die ("Could not connect to the database $db_name :" . $e->getMessage());
