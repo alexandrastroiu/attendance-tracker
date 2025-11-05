@@ -1,10 +1,44 @@
 import React from 'react'
+import { useState } from 'react';
 import './Login.css'
 
 import user_icon from '../assets/person.png'
 import password_icon from '../assets/password.png'
 
 const Login = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handleLogin = async() => {
+    try {
+        const response = await fetch('http://localhost:8888/management_attendance/attendance-tracker/backend/auth/login.php', {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+          username: username,
+          password: password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setMessage('Logged in');
+      }
+      else {
+        setMessage('Invalid username or password');
+      }
+    }
+    catch (error){
+      console.error('Error:', error);
+      setMessage('Error connecting to server');
+    }
+  }
+
   return (
     <div className='container'>
         <div className='header'>
@@ -14,16 +48,17 @@ const Login = () => {
         <div className="inputs">
             <div className="input">
                 <img src={user_icon} alt="" />
-                <input type="text" placeholder='Username'/>
+                <input type="text" placeholder='Username' value={username} onChange={(e) => setUsername(e.target.value)}/>
             </div>
             <div className="input">
                 <img src={password_icon} alt="" />
-                <input type="password" placeholder='Password'/>
+                <input type="password" placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)}/>
             </div>
         </div>
         <div className="submit-container">
-            <div className="submit">Login</div>
+            <div className="submit" onClick={handleLogin}>Login</div>
         </div>
+        {message && <p class="message-box">{message}</p>}
     </div>
   )
 }

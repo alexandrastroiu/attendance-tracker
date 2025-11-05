@@ -80,3 +80,8 @@
     font-weight: 700;
     cursor: pointer;
 }
+
+.message-box {
+    text-align: center;
+    margin-top: 10px;
+}

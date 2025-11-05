@@ -1,8 +1,15 @@
 <?php
 session_start();  // Start the session
-
-require_once __DIR__ . '/../config/dbconnect.php';
+require_once __DIR__ . '/../config/dbconnect.php';// Allow requests from your React app
+header("Access-Control-Allow-Origin: http://localhost:3000"); //allow connection with frontend (React runs on port 3000)
+header("Access-Control-Allow-Methods: POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
 header('Content-Type: application/json');
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
