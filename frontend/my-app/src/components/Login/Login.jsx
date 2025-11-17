@@ -1,11 +1,13 @@
 import React from 'react'
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Login.css'
 
 import user_icon from '../assets/person.png'
 import password_icon from '../assets/password.png'
 
 const Login = () => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -28,6 +30,8 @@ const Login = () => {
 
       if (data.success) {
         setMessage('Logged in');
+        localStorage.setItem('userRole', data.userRole);
+        navigate('/home');
       }
       else {
         setMessage('Invalid username or password');

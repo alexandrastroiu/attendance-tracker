@@ -1,4 +1,4 @@
-import './App.css';
+/*import './App.css';
 import Login from './components/Login/Login'
 
 function App() {
@@ -10,3 +10,33 @@ function App() {
 }
 
 export default App;
+*/ 
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import Login from './components/Login/Login';
+import Home from './components/Home/Home';
+
+function App() {
+  const userType = localStorage.getItem('userType'); // check if user is logged in
+
+  return (
+    <Router>
+      <Routes>
+        {/* Login route */}
+        <Route path="/login" element={<Login />} />
+
+        {/* Home route, only accessible if logged in */}
+        <Route 
+          path="/home" 
+          element={userType ? <Home /> : <Navigate to="/login" />} 
+        />
+
+        {/* Catch-all route: redirect unknown URLs to login */}
+        <Route path="*" element={<Navigate to="/login" />} />
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;
+
