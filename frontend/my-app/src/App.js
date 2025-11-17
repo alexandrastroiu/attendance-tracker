@@ -17,7 +17,7 @@ import Login from './components/Login/Login';
 import Home from './components/HomePage/Home';
 
 function App() {
-  const userType = localStorage.getItem('userType'); // check if user is logged in
+  const userRole = localStorage.getItem('userRole'); // check if user is logged in
 
   return (
     <Router>
@@ -28,7 +28,7 @@ function App() {
         {/* Home route, only accessible if logged in */}
         <Route 
           path="/home" 
-          element={userType ? <Home /> : <Navigate to="/login" />} 
+          element={userRole ? <Home /> : <Navigate to="/login" />} 
         />
 
         {/* Catch-all route: redirect unknown URLs to login */}

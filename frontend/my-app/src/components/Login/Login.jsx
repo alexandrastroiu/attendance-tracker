@@ -31,6 +31,7 @@ const Login = () => {
       if (data.success) {
         setMessage('Logged in');
         localStorage.setItem('userRole', data.userRole);
+        console.log('Login response:', data);
         navigate('/home');
       }
       else {
