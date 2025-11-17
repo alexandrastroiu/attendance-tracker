@@ -14,7 +14,7 @@ export default App;
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './components/Login/Login';
-import Home from './components/Home/Home';
+import Home from './components/HomePage/Home';
 
 function App() {
   const userType = localStorage.getItem('userType'); // check if user is logged in
