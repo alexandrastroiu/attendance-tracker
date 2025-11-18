@@ -1,29 +1,25 @@
-/*import './App.css';
-import Login from './components/Login/Login'
-
-function App() {
-  return (
-    <div>
-      <Login/>
-    </div>
-  );
-}
-
-export default App;
-*/ 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './components/Login/Login';
 import Home from './components/HomePage/Home';
 
 function App() {
-  const userRole = localStorage.getItem('userRole'); // check if user is logged in
+  //const userRole = localStorage.getItem('userRole'); // check if user is logged in
+  const [userRole, setUserRole] = useState(null);
+
+  useEffect(() => {
+    setUserRole(localStorage.getItem("userRole"));
+  }, []);
 
   return (
     <Router>
       <Routes>
         {/* Login route */}
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/login"
+          element={<Login onLogin={() => setUserRole(localStorage.getItem("userRole"))} />}
+        />
+
 
         {/* Home route, only accessible if logged in */}
         <Route 
