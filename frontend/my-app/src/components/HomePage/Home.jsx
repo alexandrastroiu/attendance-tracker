@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
-import { FaBook, FaCheckCircle, FaUsers, FaUserPlus, FaChalkboardTeacher, FaClipboardList } from 'react-icons/fa';
+import { FaBook, FaCheckCircle, FaUsers, FaUserPlus, FaChalkboardTeacher, FaClipboardList, FaUserCircle } from 'react-icons/fa';
 
 
 const Home = () => {
@@ -24,6 +24,10 @@ const Home = () => {
         <FaCheckCircle className="card-icon"/>
         Attendance & Absences
       </div>
+        <div className="card">
+        <FaUserCircle className="card-icon"/>
+        My Profile
+      </div>
     </div>
   );
 
@@ -44,6 +48,10 @@ const Home = () => {
       <div className="card">
         <FaClipboardList className="card-icon"/>
         Attendance Rates
+      </div>
+      <div className="card">
+        <FaUserCircle className="card-icon"/>
+        My Profile
       </div>
     </div>
   );
@@ -66,17 +74,23 @@ const Home = () => {
         <FaChalkboardTeacher className="card-icon"/>
         Assign Courses to Professors
       </div>
+      <div className="card">
+        <FaUserCircle className="card-icon"/>
+        My Profile
+      </div>
     </div>
   );
 
   return (
     <div className="home-container">
       <header className="home-header">
-        <h1>Faculty Attendance Management</h1>
+        <h1>Faculty of Computer Science  & Engineering -  Attendance Management</h1>
+        
         <button className="logout-button" onClick={handleLogout}>
           Logout
         </button>
       </header>
+
 
       <main className="home-main">
         {userRole === 'student' && renderStudentMenu()}
