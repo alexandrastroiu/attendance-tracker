@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import './Home.css';
 import { FaBook, FaCheckCircle, FaUsers, FaUserPlus, FaChalkboardTeacher, FaClipboardList } from 'react-icons/fa';
 
-// Example: user type saved in localStorage after login
-const userRole = localStorage.getItem('userRole')
 
 const Home = () => {
   const navigate = useNavigate();
+  // Example: user type saved in localStorage after login
+  const userRole = localStorage.getItem('userRole')
 
   const handleLogout = () => {
     localStorage.removeItem('userRole');
@@ -80,7 +80,7 @@ const Home = () => {
 
       <main className="home-main">
         {userRole === 'student' && renderStudentMenu()}
-        {userRole === 'professor' && renderProfessorMenu()}
+        {userRole === 'teacher' && renderProfessorMenu()}
         {userRole === 'admin' && renderAdminMenu()}
       </main>
     </div>
