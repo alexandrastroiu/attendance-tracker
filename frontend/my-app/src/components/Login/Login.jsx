@@ -5,6 +5,7 @@ import './Login.css'
 
 import user_icon from '../assets/person.png'
 import password_icon from '../assets/password.png'
+import logo from "../assets/collegeLogo.png";
 
 const Login = ({ onLogin }) => {
   const navigate = useNavigate();
@@ -48,6 +49,7 @@ const Login = ({ onLogin }) => {
   return (
     <div className='container'>
         <div className='header'>
+        <img src={logo} className="college-logo" alt="College Logo" />
          <div className="text">Login</div>
          <div className="underline"></div>
         </div>

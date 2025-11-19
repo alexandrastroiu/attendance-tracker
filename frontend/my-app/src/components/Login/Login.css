@@ -17,6 +17,14 @@
     margin-top: 30px;
 }
 
+.college-logo {
+    width: 220px;
+    height: auto;
+    margin-bottom: 15px;
+    margin-top: 0;
+}
+
+
 .text{
     color: #6419f0;
     font-size: 48px;
