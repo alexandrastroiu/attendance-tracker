@@ -16,11 +16,11 @@ const Home = () => {
 
   const renderStudentMenu = () => (
     <div className="menu-cards">
-      <div className="card">
+      <div className="card" onClick={() => navigate('/courses')}>
         <FaBook className="card-icon"/>
         My Courses
       </div>
-      <div className="card">
+      <div className="card" onClick={() => navigate('/attendance')}>
         <FaCheckCircle className="card-icon"/>
         Attendance & Absences
       </div>
