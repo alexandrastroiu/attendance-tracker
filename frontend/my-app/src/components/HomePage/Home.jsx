@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
-import { FaBook, FaCheckCircle, FaUsers, FaUserPlus, FaChalkboardTeacher, FaClipboardList, FaUserCircle } from 'react-icons/fa';
+import { FaBook, FaCheckCircle, FaUserClock, FaUsers, FaUserPlus, FaChalkboardTeacher, FaClipboardList, FaUserCircle } from 'react-icons/fa';
 
 
 const Home = () => {
@@ -65,6 +65,10 @@ const Home = () => {
       <div className="card">
         <FaBook className="card-icon"/>
         Manage Courses
+      </div>
+      <div className="card">
+        <FaUserClock className="card-icon"/>
+        Manage Course Sessions
       </div>
       <div className="card">
         <FaUserPlus className="card-icon"/>
