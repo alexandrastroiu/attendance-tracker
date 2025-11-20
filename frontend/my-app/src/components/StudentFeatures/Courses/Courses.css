@@ -1,4 +1,3 @@
-/* Container for the whole page */
 .courses-page {
   max-width: 1200px;
   margin: 50px auto;
@@ -6,68 +5,65 @@
   font-family: 'Arial', sans-serif;
 }
 
-/* Page header */
 .courses-header {
-  color: #6419f0; /* Dashboard purple */
+  color: #6419f0; 
   font-size: 35px;
   font-weight: 700;
   text-align: center;
-  margin-bottom: 40px; /* more spacing between title and table */
+  margin-bottom: 40px;
 }
 
-/* White rounded card behind the table */
 .courses-card {
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
   padding: 30px;
-  overflow-x: auto; /* allows horizontal scroll on small screens */
-  width: fit-content; /* make the card fit the table width */
-  max-width: 90%; /* optional: prevent it from exceeding page width */
-  margin: 0 auto; /* center the card */
+  overflow-x: auto; 
+  width: fit-content; 
+  max-width: 90%; 
+  margin: 0 auto; 
   box-sizing: border-box;
 }
 
-/* Table wrapper for extra responsiveness */
+
 .courses-table-wrapper {
   overflow-x: auto;
 }
 
-/* Table styling */
+
 .courses-table {
   border-collapse: collapse;
   font-size: 16px;
-  min-width: 1000px;  /* ensures readability */
+  min-width: 1000px;  
   table-layout: auto;
 }
 
-/* Table header cells */
 .courses-table th {
-  background-color: #6419f0; /* purple header */
+  background-color: #6419f0; 
   color: #fff;
   font-weight: 600;
   text-align: left;
   padding: 12px 20px;
 }
 
-/* Table body cells */
+
 .courses-table td {
-  border: 1px solid #ddd; /* visible grid lines */
+  border: 1px solid #ddd; 
   padding: 12px 20px;
   color: #333;
 }
 
-/* Alternate row colors */
+
 .courses-table tr:nth-child(even) {
-  background-color: #f5f5f5; /* light gray */
+  background-color: #f5f5f5; 
 }
 
-/* Hover effect for rows */
+
 .courses-table tr:hover {
-  background-color: #e0d4f7; /* subtle hover effect */
+  background-color: #e0d4f7; 
 }
 
-/* Responsive text size for smaller screens */
+
 @media (max-width: 768px) {
   .courses-table th,
   .courses-table td {

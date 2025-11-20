@@ -13,7 +13,7 @@
   margin-bottom: 60px;
 }
 
-/* Controls for dropdowns */
+
 .attendance-controls {
   display: flex;
   gap: 30px;
@@ -33,7 +33,7 @@
   border: 1px solid #ccc;
 }
 
-/* Card behind table */
+
 .attendance-card {
   background: #fff;
   border-radius: 12px;
@@ -46,12 +46,12 @@
   box-sizing: border-box;
 }
 
-/* Table wrapper for scroll */
+
 .attendance-table-wrapper {
   overflow-x: auto;
 }
 
-/* Table styling */
+
 .attendance-table {
   border-collapse: collapse;
   font-size: 16px;
@@ -81,7 +81,6 @@
   background-color: #e0d4f7;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .attendance-table th,
   .attendance-table td {
