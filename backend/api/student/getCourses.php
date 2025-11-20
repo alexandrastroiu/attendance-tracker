@@ -1,12 +1,19 @@
 <?php
 header("Access-Control-Allow-Origin: http://localhost:3000");
 header("Access-Control-Allow-Headers: Content-Type");
+header("Access-Control-Allow-Credentials: true");
 header('Content-Type: application/json');
 
 require_once __DIR__ . '/../../config/dbconnect.php';
 session_start(); // Resume the session or start a new session
 
 try {
+
+    if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
 
     if (!isset($_SESSION['student_id'])) {
         echo json_encode(["error" => "Not logged in"]);
@@ -28,7 +35,7 @@ try {
     WHERE CE.student_id = :student_id
     ");
 
-    $coursesQuery->bindParam('student_id', $student_id, PDO::PARAM_INT);
+    $coursesQuery->bindParam(':student_id', $student_id, PDO::PARAM_INT);
 
     $coursesQuery->execute();
     //Fetch data

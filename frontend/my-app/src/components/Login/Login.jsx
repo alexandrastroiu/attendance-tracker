@@ -18,6 +18,7 @@ const Login = ({ onLogin }) => {
         const response = await fetch('http://localhost:8888/management_attendance/attendance-tracker/backend/auth/login.php', {
         method: 'POST',
         mode: 'cors',
+        credentials: 'include', // for PHP Sessions (tells the browser to send cookies back and forth)
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
