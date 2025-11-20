@@ -48,7 +48,7 @@ try {
             $query .= " ORDER BY S.session_date ASC";
             break;
         case 'absences': // absences only
-            $query .= " AND A.status != 'Present' ORDER BY S.session_date DESC";
+            $query .= " AND A.attendance_status != 'Present' ORDER BY S.session_date DESC";
             break;
         default: // most recent
             $query .= " ORDER BY S.session_date DESC";
