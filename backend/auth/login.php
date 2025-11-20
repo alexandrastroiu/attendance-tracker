@@ -21,9 +21,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute(['username' => $username]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    // Successful authentication
     if ($user && password_verify($password, $user['user_password'])) {
         $_SESSION['user_id'] = $user['user_id'];
         $_SESSION['username'] = $user['username'];
+
+        // User role is student
+        if ($user['user_role'] === 'student') {
+            $studentQuery = $conn->prepare("SELECT student_id FROM Students WHERE user_id = :uid LIMIT 1");
+            $studentQuery->bindParam(":uid", $user['user_id']);
+            $studentQuery->execute();
+
+            $student = $studentQuery->fetch(PDO::FETCH_ASSOC);
+
+            // After authentication, fetch and store the student ID in the current session
+            if ($student) {
+                $_SESSION['student_id'] = $student['student_id'];
+            }
+        }
+
 
         echo json_encode([
             'success' => true,
