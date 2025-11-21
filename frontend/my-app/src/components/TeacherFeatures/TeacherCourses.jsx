@@ -38,8 +38,8 @@ const TeacherCourses = () => {
 
   return (
     <div className="courses-page">
-      <h1 className="courses-header">My Courses</h1>
       <div className="courses-card">
+            <h1 className="courses-header">My Courses</h1>
         <div className="courses-table-wrapper">
           <table className="courses-table">
             <thead>
