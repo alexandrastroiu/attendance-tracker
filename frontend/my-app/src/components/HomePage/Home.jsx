@@ -33,7 +33,7 @@ const Home = () => {
 
   const renderProfessorMenu = () => (
     <div className="menu-cards">
-      <div className="card">
+      <div className="card" onClick={() => navigate("/teachercourses")}>
         <FaBook className="card-icon"/>
         My Courses
       </div>

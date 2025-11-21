@@ -5,6 +5,7 @@ import Home from './components/HomePage/Home';
 import Courses from './components/StudentFeatures/Courses/Courses';
 import Attendance from './components/StudentFeatures/Attendance/Attendance';
 import Profile from './components/Profile/Profile';
+import TeacherCourses from './components/TeacherFeatures/TeacherCourses';
 
 function App() {
   //const userRole = localStorage.getItem('userRole'); // check if user is logged in
@@ -40,6 +41,7 @@ function App() {
           path="/profile"
           element={userRole ? <Profile /> : <Navigate to="/login" />}
         />
+         <Route path="/teachercourses" element={<TeacherCourses />} />
 
         {/* Catch-all route: redirect unknown URLs to login */}
         <Route path="*" element={<Navigate to="/login" />} />
