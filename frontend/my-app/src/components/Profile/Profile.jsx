@@ -78,14 +78,6 @@ const Profile = () => {
               <span>{profile?.department_name}</span>
             </div>
           )}
-
-          {/* ADMIN INFO */}
-          {role === "admin" && (
-            <div className="profile-row">
-              <span className="label">Admin Level:</span>
-              <span>{profile?.admin_level || "N/A"}</span>
-            </div>
-          )}
         </div>
       </div>
     </div>
