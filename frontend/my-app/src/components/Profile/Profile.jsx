@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./Profile.css";
-import userIcon from "../assets/person.png"; // round user icon
+import userIcon from "../assets/user_profile_icon.png"; // round user icon
 
 const Profile = () => {
-  const [profile, setProfile] = useState(null);
+  const [profileData, setProfileData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const Profile = () => {
         );
 
         const data = await res.json();
-        setProfile(data);
+        setProfileData(data);
         setLoading(false);
       } catch (err) {
         console.error("Error loading profile:", err);
@@ -30,7 +30,11 @@ const Profile = () => {
   }, []);
 
   if (loading) return <div className="profile-container">Loading...</div>;
-  if (!profile) return <div className="profile-container">No profile found.</div>;
+  if (!profileData) return <div className="profile-container">No profile found.</div>;
+
+  const { user, profile } = profileData;
+  const fullName = profile?.student_name || profile?.teacher_name || "Admin";
+  const role = user?.user_role || "Unknown";
 
   return (
     <div className="profile-container">
@@ -44,45 +48,43 @@ const Profile = () => {
           <img src={userIcon} alt="User Icon" className="profile-icon" />
         </div>
 
-        <h2 className="profile-name">{profile.full_name}</h2>
+        <h2 className="profile-name">{fullName}</h2>
         <p className="profile-role">
-          Role: <span>{profile.role}</span>
+          Role: <span>{role}</span>
         </p>
 
         <div className="profile-info">
           <div className="profile-row">
             <span className="label">Username:</span>
-            <span>{profile.username}</span>
+            <span>{user?.username}</span>
+          </div>
+          <div className="profile-row">
+            <span className="label">Email:</span>
+            <span>{user?.user_email}</span>
           </div>
 
           {/* STUDENT INFO */}
-          {profile.role === "student" && (
-            <>
-              <div className="profile-row">
-                <span className="label">Group:</span>
-                <span>{profile.group_name}</span>
-              </div>
-            </>
+          {role === "student" && (
+            <div className="profile-row">
+              <span className="label">Group:</span>
+              <span>{profile?.group_name}</span>
+            </div>
           )}
 
           {/* TEACHER INFO */}
-          {profile.role === "teacher" && (
-            <>
-              <div className="profile-row">
-                <span className="label">Department:</span>
-                <span>{profile.department_name}</span>
-              </div>
-            </>
+          {role === "teacher" && (
+            <div className="profile-row">
+              <span className="label">Department:</span>
+              <span>{profile?.department_name}</span>
+            </div>
           )}
 
           {/* ADMIN INFO */}
-          {profile.role === "admin" && (
-            <>
-              <div className="profile-row">
-                <span className="label">Admin Level:</span>
-                <span>{profile.admin_level}</span>
-              </div>
-            </>
+          {role === "admin" && (
+            <div className="profile-row">
+              <span className="label">Admin Level:</span>
+              <span>{profile?.admin_level || "N/A"}</span>
+            </div>
           )}
         </div>
       </div>
