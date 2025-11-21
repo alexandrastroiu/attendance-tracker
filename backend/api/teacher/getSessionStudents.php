@@ -40,11 +40,11 @@ $teacher_id = $teacher["teacher_id"];
 $checkSession = $conn->prepare("
 SELECT C.course_id
 FROM Course_Sessions CS
-JOIN Courses C ON C.course`_id = CS.course_id
+JOIN Courses C ON C.course_id = CS.course_id
 WHERE CS.session_id = :session_id AND C.teacher_id = :teacher_id
 ");
 $checkSession->bindParam(":teacher_id", $teacher_id);
-$checkSession->bindParam(":student_id", $student_id);
+$checkSession->bindParam(":session_id", $session_id);
 $checkSession->execute();
 
 if ($checkSession->fetch()) {
@@ -57,13 +57,13 @@ $studentsQuery = $conn->prepare("
 SELECT S.student_id,
 CONCAT(S.first_name, ' ', S.last_name) as student_name,
 A.attendance_status,
-CE.enrollment_type,
+CE.enrollment_type
 FROM Course_Enrollment CE
 JOIN Students S on S.student_id = CE.student_id 
 LEFT JOIN Attendance A 
 ON A.student_id = CE.student_id
 AND A.Session_id = :session_id
-WHERE CE.course_id = (SELECT course_id FROM Course_Sessions WHERE session_id = :ssesion_id)
+WHERE CE.course_id = (SELECT course_id FROM Course_Sessions WHERE session_id = :session_id)
 ORDER BY S.last_name
 ");
 $studentsQuery->bindParam(":session_id", $session_id);
