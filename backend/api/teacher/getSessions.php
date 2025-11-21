@@ -9,7 +9,7 @@ session_start();
 
 // Validate user
 if (!isset($_SESSION['user_id'])) {
-    echo json_encode(["error" => "Notlogged in"]);
+    echo json_encode(["error" => "Not logged in"]);
     exit;
 }
 
