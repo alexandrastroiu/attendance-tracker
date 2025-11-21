@@ -47,7 +47,7 @@ const TeacherCourses = () => {
                 <th>Course Name</th>
                 <th>Type</th>
                 <th>Enrolled Students</th>
-                <th>Sessions</th>
+                <th>Sessions per semester</th>
               </tr>
             </thead>
             <tbody>
