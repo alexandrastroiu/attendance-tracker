@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Profile.css";
-import userIcon from "../../assets/person.png"; // round user icon
+import userIcon from "../assets/person.png"; // round user icon
 
 const Profile = () => {
   const [profile, setProfile] = useState(null);

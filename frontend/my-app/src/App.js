@@ -4,10 +4,12 @@ import Login from './components/Login/Login';
 import Home from './components/HomePage/Home';
 import Courses from './components/StudentFeatures/Courses/Courses';
 import Attendance from './components/StudentFeatures/Attendance/Attendance';
+import Profile from './components/Profile/Profile';
 
 function App() {
   //const userRole = localStorage.getItem('userRole'); // check if user is logged in
-  const [userRole, setUserRole] = useState(null);
+  //const [userRole, setUserRole] = useState(null);
+  const [userRole, setUserRole] = useState(localStorage.getItem("userRole"));
 
   useEffect(() => {
     setUserRole(localStorage.getItem("userRole"));
@@ -19,19 +21,25 @@ function App() {
         {/* Login route */}
         <Route
           path="/login"
-          element={<Login onLogin={() => setUserRole(localStorage.getItem("userRole"))} />}
+          element={
+            <Login
+              onLogin={() => setUserRole(localStorage.getItem("userRole"))}
+            />
+          }
         />
-
 
         {/* Home route, only accessible if logged in */}
-        <Route 
-          path="/home" 
-          element={userRole ? <Home /> : <Navigate to="/login" />} 
+        <Route
+          path="/home"
+          element={userRole ? <Home /> : <Navigate to="/login" />}
         />
 
-          <Route path="/courses" element={<Courses />} />
-          <Route path="/attendance" element={<Attendance />} />
-           
+        <Route path="/courses" element={<Courses />} />
+        <Route path="/attendance" element={<Attendance />} />
+        <Route
+          path="/profile"
+          element={userRole ? <Profile /> : <Navigate to="/login" />}
+        />
 
         {/* Catch-all route: redirect unknown URLs to login */}
         <Route path="*" element={<Navigate to="/login" />} />

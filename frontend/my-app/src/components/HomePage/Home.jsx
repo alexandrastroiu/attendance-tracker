@@ -24,7 +24,7 @@ const Home = () => {
         <FaCheckCircle className="card-icon"/>
         Attendance & Absences
       </div>
-        <div className="card">
+        <div className="card" onClick={() => navigate("/profile")}>
         <FaUserCircle className="card-icon"/>
         My Profile
       </div>
@@ -49,7 +49,7 @@ const Home = () => {
         <FaClipboardList className="card-icon"/>
         Attendance Rates
       </div>
-      <div className="card">
+      <div className="card" onClick={() => navigate("/profile")}>
         <FaUserCircle className="card-icon"/>
         My Profile
       </div>
@@ -78,7 +78,7 @@ const Home = () => {
         <FaChalkboardTeacher className="card-icon"/>
         Assign Courses to Professors
       </div>
-      <div className="card">
+      <div className="card" onClick={() => navigate("/profile")}>
         <FaUserCircle className="card-icon"/>
         My Profile
       </div>
