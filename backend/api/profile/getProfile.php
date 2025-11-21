@@ -48,7 +48,7 @@ WHERE S.user_id = :user_id
 
 } else if ($role === "teacher") {
     $teacherProfileQuery = $conn->prepare("
-    SELECT T.teacher_id, T.last_name, T.first_name, T.departement_id, D.department_name,
+    SELECT T.teacher_id, T.last_name, T.first_name, T.department_id, D.department_name,
     CONCAT(T.first_name, ' ', T.last_name) AS teacher_name
     FROM Teachers T
     JOIN Departments D ON D.department_id = T.department_id
