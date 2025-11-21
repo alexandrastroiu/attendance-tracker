@@ -27,6 +27,7 @@ $teacher = $teacherQuery->fetch(PDO::FETCH_ASSOC);
 // Validate teacher
 if (!$teacher) {
     echo json_encode(["error" => "Teacher not found"]);
+    exit;
 }
 
 $teacher_id = $teacher["teacher_id"];
@@ -72,7 +73,8 @@ $sessions = $sessionsQuery->fetchAll(PDO::FETCH_ASSOC);
 // Handle in case of no sessions found
 if (!$sessions) {
     echo json_encode(["error" => "No sessions registered for this course"]);
+    exit;
 }
 
-json_encode(($sessions));
+echo json_encode(($sessions));
 ?>
