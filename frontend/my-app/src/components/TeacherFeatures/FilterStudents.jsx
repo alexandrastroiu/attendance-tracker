@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import './FilteringStudents.css';
+import './FilterStudents.css';
 
-const FilteringStudents = () => {
+const FilterStudents = () => {
   const [courses, setCourses] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState('');
   const [students, setStudents] = useState([]);
@@ -15,7 +15,7 @@ const FilteringStudents = () => {
     const fetchCourses = async () => {
       try {
         const response = await fetch(
-          'http://localhost:8888/management_attendance/attendance-tracker/backend/api/teacher/getCourses.php',
+          'http://localhost:8888/management_attendance/attendance-tracker/backend/api/teacher/getTeacherCourses.php',
           { credentials: 'include' }
         );
         const data = await response.json();
@@ -64,7 +64,7 @@ const FilteringStudents = () => {
   return (
     <div className="filter-students-page">
       <div className="filter-students-card">
-        <h1 className="filter-students-header">Filter Students by Course</h1>
+        <h1 className="filter-students-header">View students that surpassed the absences threshold</h1>
 
         {/* Course dropdown */}
         <div className="select-container">
@@ -125,4 +125,5 @@ const FilteringStudents = () => {
   );
 };
 
-export default FilteringStudents;
+export default FilterStudents;
+ 

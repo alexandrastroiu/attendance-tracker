@@ -41,7 +41,7 @@ const Home = () => {
         <FaCheckCircle className="card-icon"/>
         Mark Attendance
       </div>
-      <div className="card">
+      <div className="card" onClick={() => navigate("/filterstudents")}>
         <FaUsers className="card-icon"/>
         Filter Students
       </div>
