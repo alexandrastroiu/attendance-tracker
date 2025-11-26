@@ -47,7 +47,7 @@ $checkSession->bindParam(":teacher_id", $teacher_id);
 $checkSession->bindParam(":session_id", $session_id);
 $checkSession->execute();
 
-if ($checkSession->fetch()) {
+if (!$checkSession->fetch()) {
     echo json_encode(["error" => "Invalid session for selected course"]);
     exit;
 }
@@ -62,13 +62,15 @@ FROM Course_Enrollment CE
 JOIN Students S on S.student_id = CE.student_id 
 LEFT JOIN Attendance A 
 ON A.student_id = CE.student_id
-AND A.Session_id = :session_id
+AND A.session_id = :session_id
 WHERE CE.course_id = (SELECT course_id FROM Course_Sessions WHERE session_id = :session_id)
 ORDER BY S.last_name
 ");
 $studentsQuery->bindParam(":session_id", $session_id);
 $studentsQuery->execute();
 $students = $studentsQuery->fetchAll(PDO::FETCH_ASSOC);
+
+if (!$students) $students = [];
 
 echo json_encode($students);
 
