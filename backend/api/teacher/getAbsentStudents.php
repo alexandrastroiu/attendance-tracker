@@ -77,7 +77,7 @@ AND A.attendance_status = 'absent'
 GROUP BY A.student_id
 ) AS absence_count ON S.student_id = absence_count.student_id
 WHERE CE.course_id = :course_id
-AND COALESCE(absence_count.total_absences, 0) <= :max_absences
+AND COALESCE(absence_count.total_absences, 0) >= :max_absences
 ORDER BY  S.last_name, S.first_name
 ");
 
