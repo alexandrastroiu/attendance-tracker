@@ -13,7 +13,7 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-$user_is = intval($_SESSION["user_id"]);
+$user_id = intval($_SESSION["user_id"]);
 
 // Fetch POST data
 $data = json_decode(file_get_contents("php://input"), true);
@@ -21,7 +21,7 @@ $data = json_decode(file_get_contents("php://input"), true);
 $session_id = $data["session_id"];
 $attendance = $data["attendance"];
 
-if (!$session_id || $attendance) {
+if (!$session_id || !$attendance) {
     echo json_encode(["error"=> "Session ID or attendance data missing"]);
     exit;
 }
@@ -35,7 +35,7 @@ $teacherQuery->bindParam(":user_id", $user_id, PDO::PARAM_INT);
 $teacherQuery->execute();
 $teacher = $teacherQuery->fetch(PDO::FETCH_ASSOC);
 
-if ($teacher) {
+if (!$teacher) {
     echo json_encode(["error"=> "Teacher not found"]);
     exit;
 }
@@ -72,11 +72,11 @@ foreach ($attendance as $record) {
     $student_id = $record["student_id"];
     $status = $record["status"];
 
-    $insertQuery->bindParam(":student_id", $student_id);
-    $insertQuery->bindParam(":session_id", $session_id);
-    $insertQuery->bindParam(":status", $status);
+    $insertAttendanceQuery->bindParam(":student_id", $student_id);
+    $insertAttendanceQuery->bindParam(":session_id", $session_id);
+    $insertAttendanceQuery->bindParam(":status", $status);
 
-    $insertQuery->execute();
+    $insertAttendanceQuery->execute();
 }
 
 echo json_encode(["success" => true, "message" => "Attendance successfully saved"]);
