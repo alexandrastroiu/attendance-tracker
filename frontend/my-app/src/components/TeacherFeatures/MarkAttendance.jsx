@@ -81,47 +81,56 @@ const TeacherMarkAttendance = () => {
     })
       .then(res => res.json())
       .then(data => {
-        setMessage(data.success ? "✔ Attendance saved." : "❗ Error saving attendance.");
+        setMessage(data.success ? "Attendance saved." : "Error saving attendance.");
       })
       .catch(err => console.error(err));
   };
 
   return (
     <div className="mark-attendance-page">
-      <h1 className="mark-attendance-header">Mark Attendance</h1>
+      
 
       <div className="mark-attendance-card">
-        {/* Course selector */}
-        <label>Select a course:</label>
+        <h1 className="mark-attendance-header">Mark Attendance</h1>
+        
+        <div className="select-container">
+        <div className="selection">
+        <label className="select-label">Select a course:</label>
         <select className="mark-attendance-select" value={selectedCourse} onChange={(e) => handleSelectCourse(e.target.value)}>
           <option value="">-- Select Course --</option>
           {courses.map((c, index) => (
             <option key={index} value={c.course_id}>{c.course_name}</option>
           ))}
         </select>
+        </div>
 
-        {/* Session selector */}
+         
         {sessions.length > 0 && (
           <>
-            <label>Select a session:</label>
+          <div className="selection">
+            <label className="select-label">Select a session:</label>
             <select className="mark-attendance-select" value={selectedSession} onChange={(e) => handleSelectSession(e.target.value)}>
+        
               <option value="">-- Select date --</option>
               {sessions.map((s, index) => (
                 <option key={index} value={s.session_id}>{s.session_date}</option>
               ))}
             </select>
+            </div>
           </>
         )}
+        </div>
 
-        {/* Student attendance list */}
+        
         {students.length > 0 && (
-          <div className="mark-attendance-table-wrapper">
-            <table className="mark-attendance-table">
+          <div className="table-wrapper">
+            <table className="attendance-table">
               <thead>
                 <tr>
                   <th>Student</th>
                   <th>Present</th>
                   <th>Absent</th>
+                  <th>Excused</th>
                 </tr>
               </thead>
               <tbody>
@@ -144,6 +153,14 @@ const TeacherMarkAttendance = () => {
                         onChange={() => setStudentAttendance(stu.student_id, "absent")}
                       />
                     </td>
+                    <td>
+                      <input
+                        type="radio"
+                        name={`att-${stu.student_id}`}
+                        checked={attendance[stu.student_id] === "excused"}
+                        onChange={() => setStudentAttendance(stu.student_id, "excused")}
+                      />
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -152,10 +169,10 @@ const TeacherMarkAttendance = () => {
         )}
 
         {students.length > 0 && (
-          <button className="mark-attendance-button" onClick={submitAttendance}>Save Attendance</button>
+          <button className="save-button" onClick={submitAttendance}>Save Attendance</button>
         )}
 
-        {message && <p className="mark-attendance-message">{message}</p>}
+        {message && <p className="message-text">{message}</p>}
       </div>
     </div>
   );
