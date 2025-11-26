@@ -37,7 +37,7 @@ const Home = () => {
         <FaBook className="card-icon"/>
         My Courses
       </div>
-      <div className="card">
+      <div className="card" onClick={() => navigate("/markattendance")}>
         <FaCheckCircle className="card-icon"/>
         Mark Attendance
       </div>
