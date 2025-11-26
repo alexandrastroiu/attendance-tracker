@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Profile.css";
-import userIcon from "../assets/user_profile_icon.png"; // round user icon
+import userIcon from "../assets/user_profile_icon.png";
 
 const Profile = () => {
   const [profileData, setProfileData] = useState(null);
@@ -43,7 +43,7 @@ const Profile = () => {
       </div>
 
       <div className="profile-card">
-        {/* User Icon */}
+        
         <div className="profile-icon-wrapper">
           <img src={userIcon} alt="User Icon" className="profile-icon" />
         </div>
@@ -63,7 +63,7 @@ const Profile = () => {
             <span>{user?.user_email}</span>
           </div>
 
-          {/* STUDENT INFO */}
+      
           {role === "student" && (
             <div className="profile-row">
               <span className="label">Group:</span>
@@ -71,7 +71,7 @@ const Profile = () => {
             </div>
           )}
 
-          {/* TEACHER INFO */}
+    
           {role === "teacher" && (
             <div className="profile-row">
               <span className="label">Department:</span>
