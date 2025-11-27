@@ -49,7 +49,7 @@ const TeacherMarkAttendance = () => {
 
         // Init attendance to default = present
         const initialData = {};
-        data.forEach(stu => initialData[stu.student_id] = "present");
+        data.forEach(stu => initialData[stu.student_id] = stu.attendance_status ?? "present");
         setAttendance(initialData);
       })
       .catch(err => console.error(err));
