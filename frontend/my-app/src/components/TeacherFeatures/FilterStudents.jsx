@@ -64,7 +64,7 @@ const FilterStudents = () => {
   return (
     <div className="filter-students-page">
       <div className="filter-students-card">
-        <h1 className="filter-students-header">View students that surpassed the absences threshold</h1>
+        <h1 className="filter-students-header">Students exceeding allowed absences</h1>
 
         {/* Course dropdown */}
         <div className="select-container">
@@ -95,7 +95,6 @@ const FilterStudents = () => {
             <table className="filter-table">
               <thead>
                 <tr>
-                  <th>Student ID</th>
                   <th>First Name</th>
                   <th>Last Name</th>
                   <th>Group</th>
@@ -105,7 +104,6 @@ const FilterStudents = () => {
               <tbody>
                 {students.map((student) => (
                   <tr key={student.student_id}>
-                    <td>{student.student_id}</td>
                     <td>{student.first_name}</td>
                     <td>{student.last_name}</td>
                     <td>{student.group_name}</td>
