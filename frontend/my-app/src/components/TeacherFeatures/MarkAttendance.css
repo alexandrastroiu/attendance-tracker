@@ -1,10 +1,10 @@
-/**TODO: fix responsiveness**/
 
 .mark-attendance-page {
   max-width: 100%;
-  margin: 50px auto;
   padding: 20px;
   font-family: 'Arial', sans-serif;
+  background:  transparent;
+  max-height: fit-content;
 }
 
 .mark-attendance-header {
@@ -27,7 +27,7 @@
   padding: 30px;
   width: 65%;
   max-height: fit-content;
-  margin: 0 auto;
+  margin: 10vh auto;
   box-sizing: border-box;
 }
 
@@ -94,7 +94,7 @@
   border: none;
   padding: 12px 25px;
   font-size: 16px;
-  border-radius: 8px;
+  border-radius: 50px;
   cursor: pointer;
   margin-top: 20px;
   font-weight: 600;
