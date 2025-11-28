@@ -1,74 +1,86 @@
 import React, { useState, useEffect } from "react";
-import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 import "./AttendanceReport.css";
 
-// 12-group color palette
-const GROUP_COLORS = [
-  "#6419f0", "#FF6384", "#36A2EB", "#FFCE56",
-  "#4BC0C0", "#9966FF", "#FF9F40", "#C9CBCF",
-  "#0088FE", "#00C49F", "#FFBB28", "#FF8042"
+const GROUPS = [
+  { id: 1, name: "CS1A" }, { id: 2, name: "CS1B" },
+  { id: 3, name: "CS1C" }, { id: 4, name: "CS1D" },
+  { id: 5, name: "CS2A" }, { id: 6, name: "CS2B" },
+  { id: 7, name: "CS2C" }, { id: 8, name: "CS2D" },
+  { id: 9, name: "CS3A" }, { id: 10, name: "CS3B" },
+  { id: 11, name: "CS3C" }, { id: 12, name: "CS3D" }
 ];
-
-// Colors for total attendance
-const TOTAL_COLORS = ["#6419f0", "#FFCE56"];
 
 export default function AttendanceReport() {
   const [courses, setCourses] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState("");
-  const [rateType, setRateType] = useState("total"); // "total" or "group"
-  const [totalData, setTotalData] = useState(null);
-  const [groupData, setGroupData] = useState([]);
+  const [selectedGroup, setSelectedGroup] = useState(0); // 0 = total
+  const [attendanceData, setAttendanceData] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  // Fetch courses for logged-in teacher
+  // Fetch teacher's courses
   useEffect(() => {
-    fetch("http://localhost:8888/attendance-tracker/backend/api/teacher/getTeacherCourses.php", {
-      credentials: "include",
-    })
+    fetch(
+      "http://localhost:8888/management_attendance/attendance-tracker/backend/api/teacher/getTeacherCourses.php",
+      { credentials: "include" }
+    )
       .then(res => res.json())
       .then(data => setCourses(data))
       .catch(console.error);
   }, []);
 
-  // Fetch attendance data when course or rate type changes
+  // Fetch attendance whenever course or group changes
   useEffect(() => {
     if (!selectedCourse) return;
 
-    const group_id = rateType === "total" ? 0 : -1; // 0 = total, -1 = all groups
-    const url = `http://localhost:8888/attendance-tracker/backend/api/teacher/getAttendanceRate.php?course_id=${selectedCourse}&group_id=${group_id}`;
+    setLoading(true);
+    setAttendanceData(null);
+
+    const groupId = parseInt(selectedGroup); // ensure it's an integer
+    const url = `http://localhost:8888/management_attendance/attendance-tracker/backend/api/teacher/getAttendanceRate.php?course_id=${selectedCourse}&group_id=${groupId}`;
 
     fetch(url, { credentials: "include" })
       .then(res => res.json())
       .then(data => {
-        if (rateType === "total") {
-          setTotalData(data);
-          setGroupData([]);
-        } else {
-          setGroupData(data.groups || []);
-          setTotalData(null);
-        }
+          console.log("Attendance data:", data)
+        setAttendanceData(data);
+        setLoading(false);
       })
-      .catch(console.error);
-  }, [selectedCourse, rateType]);
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, [selectedCourse, selectedGroup]);
 
-  // Prepare chart data
-  const chartData = totalData
-    ? [
-        { name: "Attendance", value: parseFloat(totalData.attendance_rate) },
-        { name: "Missing", value: 100 - parseFloat(totalData.attendance_rate) },
-      ]
-    : groupData.map((g, idx) => ({
-        name: g.group,
-        value: parseFloat(g.attendance_rate),
-      }));
+  const renderBlocks = () => {
+    if (!attendanceData) return null;
 
-  const colors = totalData ? TOTAL_COLORS : GROUP_COLORS;
+    const present = attendanceData.total_attendaces;
+    const absent =
+      attendanceData.total_students * attendanceData.total_classes - present;
+    const attendanceRate = parseFloat(attendanceData.attendance_rate).toFixed(2);
+    const absentRate = (100 - parseFloat(attendanceData.attendance_rate)).toFixed(2);
+
+    return (
+      <div className="attendance-blocks">
+        <div className="attendance-block present">
+          <h2>Present</h2>
+          <p>{present}</p>
+          <p>{attendanceRate}%</p>
+        </div>
+        <div className="attendance-block absent">
+          <h2>Absent</h2>
+          <p>{absent}</p>
+          <p>{absentRate}%</p>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className="attendance-report-page">
       <h1 className="attendance-report-header">Attendance Report</h1>
 
       <div className="attendance-report-controls">
-        {/* Course dropdown */}
         <div>
           <label className="attendance-report-label">Course: </label>
           <select
@@ -85,42 +97,25 @@ export default function AttendanceReport() {
           </select>
         </div>
 
-        {/* Rate type dropdown */}
         <div>
-          <label className="attendance-report-label">Rate: </label>
+          <label className="attendance-report-label">Group: </label>
           <select
-            value={rateType}
-            onChange={e => setRateType(e.target.value)}
+            value={selectedGroup}
+            onChange={e => setSelectedGroup(parseInt(e.target.value))}
             className="attendance-report-select"
           >
-            <option value="total">Total</option>
-            <option value="group">By Group</option>
+            <option value={0}>Total</option>
+            {GROUPS.map(group => (
+              <option key={group.id} value={group.id}>
+                {group.name}
+              </option>
+            ))}
           </select>
         </div>
       </div>
 
-      {/* Pie chart */}
-      {chartData.length > 0 ? (
-        <PieChart width={500} height={400}>
-          <Pie
-            data={chartData}
-            dataKey="value"
-            nameKey="name"
-            cx="50%"
-            cy="50%"
-            outerRadius={120}
-            label
-          >
-            {chartData.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
-            ))}
-          </Pie>
-          <Tooltip />
-          <Legend layout="vertical" verticalAlign="middle" align="right" />
-        </PieChart>
-      ) : (
-        <p className="attendance-report-message">No attendance data</p>
-      )}
+      {loading && <p className="attendance-report-message">Loading attendance...</p>}
+      {renderBlocks()}
     </div>
   );
 }
