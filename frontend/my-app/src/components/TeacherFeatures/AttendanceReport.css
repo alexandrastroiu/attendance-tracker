@@ -1,9 +1,21 @@
 .attendance-report-page {
-  max-width: 700px;
+  max-width: 1200px;
   margin: 50px auto;
   font-family: Arial, sans-serif;
   text-align: center;
 }
+
+.attendance-report-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  width: 70%;
+  max-height: fit-content;
+  margin: 10vh auto;
+  box-sizing: border-box;
+}
+
 
 .attendance-report-header {
   color: #6419f0;
@@ -36,7 +48,7 @@
 .attendance-blocks {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 40px;
   flex-wrap: wrap;
 }
 
@@ -65,7 +77,7 @@
 }
 
 .attendance-block.absent {
-  background-color: #dc3545; 
+  background-color: #e51717; 
 }
 
 .attendance-report-message {

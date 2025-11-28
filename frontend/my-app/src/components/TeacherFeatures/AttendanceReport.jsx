@@ -78,6 +78,7 @@ export default function AttendanceReport() {
 
   return (
     <div className="attendance-report-page">
+    <div className="attendance-report-card">
       <h1 className="attendance-report-header">Attendance Report</h1>
 
       <div className="attendance-report-controls">
@@ -116,6 +117,7 @@ export default function AttendanceReport() {
 
       {loading && <p className="attendance-report-message">Loading attendance...</p>}
       {renderBlocks()}
+       </div>
     </div>
   );
 }
