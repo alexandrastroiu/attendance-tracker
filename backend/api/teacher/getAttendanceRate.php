@@ -142,6 +142,6 @@ echo json_encode ([
 "total_students" => $totalStudentsEnrolled,
 "total_classes" => $totalClasses,
 "total_attendaces" => $attendances,
-"attendance_rate" => $attendance_rate
+"attendance_rate" => $attendance_rate == null ? 0 : $attendance_rate
 ]);
 ?>
