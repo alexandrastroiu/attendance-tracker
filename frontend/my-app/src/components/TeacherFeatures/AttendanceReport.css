@@ -13,7 +13,7 @@
 }
 
 .attendance-report-controls {
-  margin-bottom: 30px;
+  margin-bottom: 100px;
   display: flex;
   justify-content: center;
   gap: 20px;
@@ -41,7 +41,8 @@
 }
 
 .attendance-block {
-  width: 150px;
+  width:40vw;
+  height: fit-content;
   padding: 20px;
   border-radius: 12px;
   color: #fff;
@@ -59,13 +60,12 @@
   font-size: 18px;
 }
 
-/* Colors */
 .attendance-block.present {
-  background-color: #28a745; /* green */
+  background-color: #28a745; 
 }
 
 .attendance-block.absent {
-  background-color: #dc3545; /* red */
+  background-color: #dc3545; 
 }
 
 .attendance-report-message {

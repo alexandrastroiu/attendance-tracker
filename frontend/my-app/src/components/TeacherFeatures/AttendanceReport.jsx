@@ -13,11 +13,11 @@ const GROUPS = [
 export default function AttendanceReport() {
   const [courses, setCourses] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState("");
-  const [selectedGroup, setSelectedGroup] = useState(0); // 0 = total
+  const [selectedGroup, setSelectedGroup] = useState(0); 
   const [attendanceData, setAttendanceData] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // Fetch teacher's courses
+
   useEffect(() => {
     fetch(
       "http://localhost:8888/management_attendance/attendance-tracker/backend/api/teacher/getTeacherCourses.php",
@@ -28,14 +28,14 @@ export default function AttendanceReport() {
       .catch(console.error);
   }, []);
 
-  // Fetch attendance whenever course or group changes
+
   useEffect(() => {
     if (!selectedCourse) return;
 
     setLoading(true);
     setAttendanceData(null);
 
-    const groupId = parseInt(selectedGroup); // ensure it's an integer
+    const groupId = parseInt(selectedGroup); 
     const url = `http://localhost:8888/management_attendance/attendance-tracker/backend/api/teacher/getAttendanceRate.php?course_id=${selectedCourse}&group_id=${groupId}`;
 
     fetch(url, { credentials: "include" })
