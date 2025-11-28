@@ -91,14 +91,13 @@ $totalClasses = $totalClassesHeld["total_classes"];
 $totalAttendancesQuery = "
 SELECT COUNT(*) AS total_attendances
 FROM Attendance A
-JOIN Course_Sessions CS
-ON A.session_id = CS.session_id"
-. ($group_id > 0 ? "JOIN Students S ON A.student_id = S.student_id": "")
-. " WHERE
-CS.course_id = :course_id
+JOIN Course_Sessions CS ON A.session_id = CS.session_id"
+. ($group_id > 0 ? " JOIN Students S ON A.student_id = S.student_id" : "") . "
+WHERE CS.course_id = :course_id
 AND A.attendance_status = 'present'
 AND CS.session_date <= CURDATE()"
-. ($group_id > 0 ? "AND S.group_id = :group_id" : "");
+. ($group_id > 0 ? " AND S.group_id = :group_id" : "");
+
 
 $totalAttendances = $conn->prepare($totalAttendancesQuery);
 $totalAttendances->bindParam(":course_id", $course_id,PDO::PARAM_INT);
