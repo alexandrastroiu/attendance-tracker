@@ -45,7 +45,7 @@ const Home = () => {
         <FaUsers className="card-icon"/>
         Filter Students
       </div>
-      <div className="card">
+      <div className="card" onClick={() => navigate("/attendancereport")}>
         <FaClipboardList className="card-icon"/>
         Attendance Rates
       </div>

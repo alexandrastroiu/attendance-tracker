@@ -8,6 +8,7 @@ import Profile from './components/Profile/Profile';
 import TeacherCourses from './components/TeacherFeatures/TeacherCourses';
 import MarkAttendance from './components/TeacherFeatures/MarkAttendance';
 import FilterStudents from './components/TeacherFeatures/FilterStudents'; 
+import AttendanceReport from './components/TeacherFeatures/AttendanceReport';
 
 function App() {
   //const userRole = localStorage.getItem('userRole'); // check if user is logged in
@@ -48,6 +49,8 @@ function App() {
          <Route path="/markattendance" element={<MarkAttendance />} />
 
          <Route path="/filterstudents" element={<FilterStudents />} />
+
+         <Route path="/attendancereport" element={<AttendanceReport />} />
 
         {/* Catch-all route: redirect unknown URLs to login */}
         <Route path="*" element={<Navigate to="/login" />} />
