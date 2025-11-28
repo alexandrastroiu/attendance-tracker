@@ -68,6 +68,9 @@ FROM Course_Enrollment CE
 
 $totalStudents = $conn->prepare($totalStudentsQuery);
 $totalStudents->bindParam(":course_id", $course_id, PDO::PARAM_INT);
+if ($group_id > 0) {
+$totalStudents->bindParam(":group_id", $group_id,PDO::PARAM_INT);
+}
 $totalStudents->execute();
 $totalStudentsEnrolled = $totalStudents->fetch(PDO::FETCH_ASSOC)['total_students'];
 
