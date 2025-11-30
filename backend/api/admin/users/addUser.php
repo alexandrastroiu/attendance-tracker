@@ -26,7 +26,7 @@ try {
     $validateAdmin->execute();
     $admin = $validateAdmin->fetch(PDO::FETCH_ASSOC);
 
-    // Validate logged in suer is an admin
+    // Validate logged in user is an admin
     if (!$admin || $admin["user_role"] !== 'admin') {
         echo json_encode(['error'=> 'Access denied. You are not an administrator']);
         exit;
