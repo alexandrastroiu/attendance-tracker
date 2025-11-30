@@ -58,7 +58,7 @@ const Home = () => {
 
   const renderAdminMenu = () => (
     <div className="menu-cards">
-      <div className="card">
+      <div className="card" onClick={() => navigate("/manageusers")}>
         <FaUsers className="card-icon"/>
         Manage Users
       </div>
