@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
-import { FaBook, FaCheckCircle, FaUserClock, FaUsers, FaUserPlus, FaChalkboardTeacher, FaClipboardList, FaUserCircle } from 'react-icons/fa';
+import { FaBook, FaCheckCircle, FaUserClock, FaUsers, FaUserPlus, FaClipboardList, FaUserCircle } from 'react-icons/fa';
 
 
 const Home = () => {
@@ -73,10 +73,6 @@ const Home = () => {
       <div className="card">
         <FaUserPlus className="card-icon"/>
         Assign Courses to Students
-      </div>
-      <div className="card">
-        <FaChalkboardTeacher className="card-icon"/>
-        Assign Courses to Professors
       </div>
       <div className="card" onClick={() => navigate("/profile")}>
         <FaUserCircle className="card-icon"/>
