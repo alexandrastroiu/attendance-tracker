@@ -9,7 +9,7 @@ session_start();
 
 try {
     $courses = $conn->prepare("
-    SELECT C.course_id, C.course_name, C.course_type, C.teacher_id
+    SELECT C.course_id, C.course_name, C.course_type, C.teacher_id,
     CONCAT(T.first_name, ' ', T.last_name) AS teacher_name
     FROM Courses C
     LEFT JOIN Teachers T ON C.teacher_id = T.teacher_id
