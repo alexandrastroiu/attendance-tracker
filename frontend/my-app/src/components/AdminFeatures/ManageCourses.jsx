@@ -201,7 +201,7 @@ const ManageCourses = () => {
                   <select name="teacher_id" value={courseForm.teacher_id} onChange={handleChange}>
                     <option value="">Select Teacher</option>
                     {teachers.map(t => (
-                      <option key={t.user_id} value={t.user_id}>{t.teacher_name}</option>
+                      <option key={t.teacher_id} value={t.teacher_id}>{t.teacher_name}</option>
                     ))}
                   </select>
 
