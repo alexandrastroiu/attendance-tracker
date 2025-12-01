@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
 import { FaBook, FaCheckCircle, FaUserClock, FaUsers, FaUserPlus, FaClipboardList, FaUserCircle } from 'react-icons/fa';
+import Navbar from "../NavigationBar/Navbar";
 
 
 const Home = () => {
@@ -83,6 +84,7 @@ const Home = () => {
 
   return (
     <div className="home-container">
+      <Navbar />
       <header className="home-header">
         <h1>Faculty of Computer Science  & Engineering -  Attendance Management</h1>
         

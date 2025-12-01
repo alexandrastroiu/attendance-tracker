@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Attendance.css";
+import Navbar from '../../NavigationBar/Navbar';
 
 const Attendance = () => {
   const [courses, setCourses] = useState([]);
@@ -62,6 +63,7 @@ const Attendance = () => {
 
   return (
     <div className="attendance-page">
+      <Navbar />
       <h1 className="attendance-header">Attendance</h1>
 
       <div className="attendance-controls">

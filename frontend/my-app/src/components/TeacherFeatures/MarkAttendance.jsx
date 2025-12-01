@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./MarkAttendance.css";
+import Navbar from '../NavigationBar/Navbar';
 
 const TeacherMarkAttendance = () => {
   const [courses, setCourses] = useState([]);
@@ -89,7 +90,7 @@ const TeacherMarkAttendance = () => {
   return (
     <div className="mark-attendance-page">
       
-
+      <Navbar />
       <div className="mark-attendance-card">
         <h1 className="mark-attendance-header">Mark Attendance</h1>
         

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "../StudentFeatures/Courses/Courses.css"; 
+import "../StudentFeatures/Courses/Courses.css";
+import Navbar from '../NavigationBar/Navbar'; 
 
 const TeacherCourses = () => {
   const [courses, setCourses] = useState([]);
@@ -38,6 +39,7 @@ const TeacherCourses = () => {
 
   return (
     <div className="courses-page">
+      <Navbar />
       <div className="courses-card">
             <h1 className="courses-header">My Courses</h1>
         <div className="courses-table-wrapper">

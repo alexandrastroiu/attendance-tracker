@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import userIcon from "../assets/user_profile_icon.png";
+import Navbar from "../NavigationBar/Navbar";
 
 const Profile = () => {
   const [profileData, setProfileData] = useState(null);
@@ -38,6 +39,7 @@ const Profile = () => {
 
   return (
     <div className="profile-container">
+      <Navbar />
       <div className="profile-header">
         <h1>My Profile</h1>
       </div>

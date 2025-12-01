@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./AttendanceReport.css";
+import Navbar from '../NavigationBar/Navbar';
 
 const GROUPS = [
   { id: 1, name: "CS1A" }, { id: 2, name: "CS1B" },
@@ -78,6 +79,7 @@ export default function AttendanceReport() {
 
   return (
     <div className="attendance-report-page">
+      <Navbar />
     <div className="attendance-report-card">
       <h1 className="attendance-report-header">Attendance Report</h1>
 

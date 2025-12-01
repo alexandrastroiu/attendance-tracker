@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './FilterStudents.css';
+import Navbar from '../NavigationBar/Navbar';
 
 const FilterStudents = () => {
   const [courses, setCourses] = useState([]);
@@ -63,6 +64,7 @@ const FilterStudents = () => {
 
   return (
     <div className="filter-students-page">
+      <Navbar />
       <div className="filter-students-card">
         <h1 className="filter-students-header">Students exceeding allowed absences</h1>
 

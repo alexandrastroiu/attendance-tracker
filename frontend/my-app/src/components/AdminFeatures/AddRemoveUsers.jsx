@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Users.css';
+import Navbar from "../NavigationBar/Navbar";
 
 const BASE_URL = 'http://localhost:8888/management_attendance/attendance-tracker/backend/api/admin/users';
 
@@ -141,6 +142,7 @@ const Users = () => {
 
   return (
     <div className="users-page">
+       <Navbar />
       <div className="users-card">
         <h1 className="users-header">Manage Users</h1>
 

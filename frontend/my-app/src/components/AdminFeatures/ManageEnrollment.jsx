@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Users.css';
+import Navbar from "../NavigationBar/Navbar";
 
 const BASE_URL = 'http://localhost:8888/management_attendance/attendance-tracker/backend/api/admin/enrollment';
 const BASE_URL_COURSES = 'http://localhost:8888/management_attendance/attendance-tracker/backend/api/admin/courses';
@@ -135,6 +136,7 @@ const ManageEnrollments = () => {
 
   return (
     <div className="users-page">
+        <Navbar />
       <div className="users-card">
         <h1 className="users-header">Manage Enrollments</h1>
 
