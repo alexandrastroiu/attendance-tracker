@@ -50,8 +50,8 @@ try {
         exit;
     }
 
-    if (!$course_type) {
-        echo json_encode(["success" => false, "error" => "Course type required"]);
+    if (!$enrollment_type) {
+        echo json_encode(["success" => false, "error" => "Enrollment type required"]);
         exit;
     }
 
@@ -65,7 +65,7 @@ try {
     $checkDuplicate->bindParam(":course_id", $course_id, PDO::PARAM_INT);
     $checkDuplicate->execute();
 
-    if (!$checkDuplicate->rowCount() > 0) {
+    if ($checkDuplicate->rowCount() > 0) {
         echo json_encode(["success"=> false, "error" => "Student is already enrolled in this course"]);
         exit;
     }
@@ -77,10 +77,10 @@ try {
     ");
     $insertEnrollment->bindParam(":student_id", $student_id, PDO::PARAM_INT);
     $insertEnrollment->bindParam(":course_id", $course_id, PDO::PARAM_INT);
-    $insertEnrollment->bindParam(":enrollment_type", $enrollment_type, PDO::PARAM_INT);
+    $insertEnrollment->bindParam(":enrollment_type", $enrollment_type, PDO::PARAM_STR);
     $result = $insertEnrollment->execute();
 
-    if (!$result) {
+    if ($result) {
         echo json_encode(["success" => true, "message" => "Enrollment added successfully"]);
     }
     else {
