@@ -70,7 +70,7 @@ const Home = () => {
         <FaUserClock className="card-icon"/>
         Manage Course Sessions
       </div>
-      <div className="card">
+      <div className="card"  onClick={() => navigate("/manageenrollments")}>
         <FaUserPlus className="card-icon"/>
         Assign Courses to Students
       </div>
