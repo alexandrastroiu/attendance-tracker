@@ -19,7 +19,7 @@ const ManageCourses = () => {
     course_name: '',
     course_type: '',
     teacher_id: '',
-    course_id: null, // used for edit
+    course_id: null, 
   };
   
   const [courseForm, setCourseForm] = useState(initialCourseState);
@@ -35,9 +35,8 @@ const ManageCourses = () => {
         const courseData = await courseRes.json();
         const teacherData = await teacherRes.json();
 
-        // Ensure courses is an array
-        setCourses(Array.isArray(courseData) ? courseData : courseData.data || []);
-        setTeachers(Array.isArray(teacherData) ? teacherData : teacherData.data || []);
+        setCourses(Array.isArray(courseData) ? courseData : []);
+        setTeachers(Array.isArray(teacherData) ? teacherData : []);
       } catch (err) {
         setError('Failed to fetch data');
       } finally {
@@ -50,7 +49,7 @@ const ManageCourses = () => {
   const fetchCourses = async () => {
     const res = await fetch(`${BASE_URL}/getCourses.php`, { credentials: 'include' });
     const data = await res.json();
-    setCourses(Array.isArray(data) ? data : data.data || []);
+    setCourses(Array.isArray(data) ? data : []);
   };
 
   const handleChange = e => {
@@ -141,23 +140,31 @@ const ManageCourses = () => {
       <div className="users-card">
         <h1 className="users-header">Manage Courses</h1>
 
-        {/* ADD COURSE */}
         <div className="users-section">
           <button className="users-btn" onClick={() => setExpandAdd(!expandAdd)}>Add Course</button>
           {expandAdd && (
             <div className="users-form">
               <input name="course_name" value={courseForm.course_name} placeholder="Course Name" onChange={handleChange} />
-              <input name="course_type" value={courseForm.course_type} placeholder="Course Type" onChange={handleChange} />
+
+              <select name="course_type" value={courseForm.course_type} onChange={handleChange}>
+                <option value="">Select Course Type</option>
+                <option value="Mandatory">Mandatory</option>
+                <option value="Elective">Elective</option>
+                <option value="Optional">Optional</option>
+              </select>
+
               <select name="teacher_id" value={courseForm.teacher_id} onChange={handleChange}>
                 <option value="">Select Teacher</option>
-                {teachers.map(t => <option key={t.user_id} value={t.user_id}>{t.first_name} {t.last_name}</option>)}
+                {teachers.map(t => (
+                  <option key={t.user_id} value={t.user_id}>{t.teacher_name}</option>
+                ))}
               </select>
+
               <button className="users-submit" onClick={handleAddCourse}>Submit</button>
             </div>
           )}
         </div>
 
-        {/* EDIT COURSE */}
         <div className="users-section">
           <button className="users-btn" onClick={() => setExpandEdit(!expandEdit)}>Edit Course</button>
           {expandEdit && (
@@ -176,16 +183,28 @@ const ManageCourses = () => {
                 }}
               >
                 <option value="">Select Course</option>
-                {courses.map(c => <option key={c.course_id} value={c.course_id}>{c.course_name} ({c.course_type})</option>)}
+                {courses.map(c => (
+                  <option key={c.course_id} value={c.course_id}>{c.course_name} ({c.course_type})</option>
+                ))}
               </select>
               {courseForm.course_id && (
                 <>
                   <input name="course_name" value={courseForm.course_name} placeholder="Course Name" onChange={handleChange} />
-                  <input name="course_type" value={courseForm.course_type} placeholder="Course Type" onChange={handleChange} />
+
+                  <select name="course_type" value={courseForm.course_type} onChange={handleChange}>
+                    <option value="">Select Course Type</option>
+                    <option value="Mandatory">Mandatory</option>
+                    <option value="Elective">Elective</option>
+                    <option value="Optional">Optional</option>
+                  </select>
+
                   <select name="teacher_id" value={courseForm.teacher_id} onChange={handleChange}>
                     <option value="">Select Teacher</option>
-                    {teachers.map(t => <option key={t.user_id} value={t.user_id}>{t.first_name} {t.last_name}</option>)}
+                    {teachers.map(t => (
+                      <option key={t.user_id} value={t.user_id}>{t.teacher_name}</option>
+                    ))}
                   </select>
+
                   <button className="users-submit" onClick={handleEditCourse}>Submit</button>
                 </>
               )}
@@ -193,7 +212,6 @@ const ManageCourses = () => {
           )}
         </div>
 
-        {/* DELETE COURSE */}
         <div className="users-section">
           <button className="users-btn" onClick={() => setExpandDelete(!expandDelete)}>Delete Course</button>
           {expandDelete && (
@@ -208,7 +226,6 @@ const ManageCourses = () => {
           )}
         </div>
 
-        {/* VIEW COURSES */}
         <div className="users-section">
           <button className="users-btn" onClick={() => setExpandView(!expandView)}>View Courses</button>
           {expandView && (
@@ -226,7 +243,7 @@ const ManageCourses = () => {
                     <tr key={c.course_id}>
                       <td>{c.course_name}</td>
                       <td>{c.course_type}</td>
-                      <td>{teachers.find(t => t.user_id === c.teacher_id)?.first_name || 'N/A'}</td>
+                      <td>{c.teacher_name || 'N/A'}</td>
                     </tr>
                   ))}
                 </tbody>
