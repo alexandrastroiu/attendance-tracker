@@ -9,7 +9,7 @@ session_start();
 
 try {
     $teachers = $conn->prepare("
-        SELECT U.user_id, U.username, T.first_name, T.last_name,
+        SELECT U.user_id, U.username, T.first_name, T.last_name,T.teacher_id,
         CONCAT(T.first_name, ' ', T.last_name) AS teacher_name
         FROM Users U
         JOIN Teachers T ON U.user_id = T.user_id
