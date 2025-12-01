@@ -10,6 +10,7 @@ import MarkAttendance from './components/TeacherFeatures/MarkAttendance';
 import FilterStudents from './components/TeacherFeatures/FilterStudents'; 
 import AttendanceReport from './components/TeacherFeatures/AttendanceReport';
 import Users from './components/AdminFeatures/AddRemoveUsers';
+import ManageCourses from './components/AdminFeatures/ManageCourses';
 
 function App() {
   //const userRole = localStorage.getItem('userRole'); // check if user is logged in
@@ -54,6 +55,8 @@ function App() {
          <Route path="/attendancereport" element={<AttendanceReport />} />
 
           <Route path="/manageusers" element={<Users />} />
+
+          <Route path="/managecourses" element={<ManageCourses/>} />
 
         {/* Catch-all route: redirect unknown URLs to login */}
         <Route path="*" element={<Navigate to="/login" />} />
