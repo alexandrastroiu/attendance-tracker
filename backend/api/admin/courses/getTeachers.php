@@ -9,9 +9,11 @@ session_start();
 
 try {
     $teachers = $conn->prepare("
-        SELECT user_id, first_name, last_name
-        FROM Users
-        WHERE user_role = 'teacher'
+        SELECT U.user_id, U.username, T.first_name, T.last_name,
+        CONCAT(T.first_name, ' ', T.last_name) AS teacher_name
+        FROM Users U
+        JOIN Teachers T ON U.user_id = T.user_id
+        WHERE U.user_role = 'teacher'
     ");
 
     $teachers->execute();
