@@ -9,19 +9,19 @@ session_start();
 
 try {
     $teachers = $conn->prepare("
-    SELECT C.course_id, C.course_name, C.course_type, C.teacher_id,
-    CONCAT(T.first_name, ' ', T.last_name) AS teacher_name
-    FROM Courses C
-    LEFT JOIN Teachers T ON C.teacher_id = T.teacher_id
+        SELECT U.user_id, U.username, T.first_name, T.last_name,
+        CONCAT(T.first_name, ' ', T.last_name) AS teacher_name
+        FROM Users U
+        JOIN Teachers T ON U.user_id = T.user_id
+        WHERE U.user_role = 'teacher'
     ");
 
     $teachers->execute();
 
     echo json_encode($teachers->fetchAll(PDO::FETCH_ASSOC));
 
-}
-catch (Exception $e) {
-    echo json_encode(["error"=> $e->getMessage()]);
+} catch (Exception $e) {
+    echo json_encode(["error" => $e->getMessage()]);
 }
 
 ?>
