@@ -50,8 +50,8 @@ try {
         exit;
     }
 
-    if (!$course_type) {
-        echo json_encode(["success" => false, "error" => "Course type required"]);
+    if (!$enrollment_type) {
+        echo json_encode(["success" => false, "error" => "Enrollment type required"]);
         exit;
     }
 
