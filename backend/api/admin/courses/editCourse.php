@@ -97,7 +97,8 @@ try {
     ");
     $updatecourse->bindParam(":course_id", $course_id, PDO::PARAM_INT);
     $updatecourse->bindParam(":course_name", $course_name);
-    $updatecourse->bindParam(":course_type", $course_typee);
+    $updatecourse->bindParam(":course_type", $course_type);
+    $updatecourse->bindParam(":teacher_id", $teacher_id, PDO::PARAM_INT);
     $result = $updatecourse->execute();
 
     if ($result) {
