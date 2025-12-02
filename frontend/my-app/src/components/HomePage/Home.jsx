@@ -67,7 +67,7 @@ const Home = () => {
         <FaBook className="card-icon"/>
         Manage Courses
       </div>
-      <div className="card">
+      <div className="card" onClick={() => navigate("/managesessions")}>
         <FaUserClock className="card-icon"/>
         Manage Course Sessions
       </div>
