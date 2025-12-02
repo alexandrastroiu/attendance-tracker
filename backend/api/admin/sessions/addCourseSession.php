@@ -65,8 +65,8 @@ try {
     ");
     $insertSession->bindParam(":course_id", $course_id);
     $insertSession->bindParam(":session_date", $session_date);
-    $insertSession->bindParam(":start_time", $start_time);
-    $insertSession->bindParam(":end_time", $end_time);
+    $insertSession->bindParam(":session_time", $session_time);
+    $insertSession->bindParam(":duration", $duration);
     $insertSession->execute();
 
         echo json_encode(["success"=>true,"message"=>"Session added"]);
