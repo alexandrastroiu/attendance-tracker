@@ -20,10 +20,17 @@ const ManageSessions = () => {
     session_id: null,
     course_id: "",
     session_date: "",
-    session_topic: "",
+    session_time: "08:00:00",
+    duration: "02:00:00",     
   };
 
   const [sessionForm, setSessionForm] = useState(initialSessionState);
+
+  const timeOptions = [];
+  for (let hour = 8; hour <= 20; hour++) {
+    const h = hour.toString().padStart(2, "0");
+    timeOptions.push(`${h}:00:00`);
+  }
 
   useEffect(() => {
     const loadAll = async () => {
@@ -37,7 +44,7 @@ const ManageSessions = () => {
         const courseData = await courseRes.json();
 
         setSessions(sessionData.sessions || []);
-        setCourses(courseData.courses || []);
+        setCourses(Array.isArray(courseData) ? courseData : []); 
 
       } catch (err) {
         setError('Failed to fetch data');
@@ -58,7 +65,6 @@ const ManageSessions = () => {
     setSessionForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  // add session
   const handleAddSession = async () => {
     if (!sessionForm.session_date || !sessionForm.course_id) {
       alert("Session date and course are required");
@@ -121,30 +127,56 @@ const ManageSessions = () => {
       <div className="users-card">
         <h1 className="users-header">Manage Course Sessions</h1>
 
-        {/* ADD SESSION */}
         <div className="users-section">
           <button className="users-btn" onClick={() => setExpandAdd(!expandAdd)}>
             Add Session
           </button>
           {expandAdd && (
             <div className="users-form">
-              <select name="course_id" value={sessionForm.course_id} onChange={handleChange}>
+              <select
+                name="course_id"
+                value={sessionForm.course_id}
+                onChange={handleChange}
+              >
                 <option value="">Select Course</option>
-                {courses.map(c =>
-                  <option key={c.course_id} value={c.course_id}>{c.course_name}</option>
+                {courses.length > 0 ? (
+                  courses.map((c) => (
+                    <option key={c.course_id} value={c.course_id}>
+                      {c.course_name}
+                    </option>
+                  ))
+                ) : (
+                  <option disabled>No courses available</option>
                 )}
               </select>
 
-              <input type="date" name="session_date" value={sessionForm.session_date} onChange={handleChange} />
+              <input
+                type="date"
+                name="session_date"
+                value={sessionForm.session_date}
+                onChange={handleChange}
+              />
 
-              <input type="text" name="session_topic" placeholder="Topic (optional)" value={sessionForm.session_topic} onChange={handleChange} />
+              <select
+                name="session_time"
+                value={sessionForm.session_time}
+                onChange={handleChange}
+              >
+                {timeOptions.map((time) => (
+                  <option key={time} value={time}>
+                    {time}
+                  </option>
+                ))}
+              </select>
 
-              <button className="users-submit" onClick={handleAddSession}>Submit</button>
+
+              <button className="users-submit" onClick={handleAddSession}>
+                Submit
+              </button>
             </div>
           )}
         </div>
 
-        {/* DELETE SESSION */}
         <div className="users-section">
           <button className="users-btn" onClick={() => setExpandDelete(!expandDelete)}>
             Delete Session
@@ -154,7 +186,7 @@ const ManageSessions = () => {
             <ul className="users-delete-list">
               {sessions.map(s => (
                 <li key={s.session_id}>
-                  {s.course_name} — {s.session_date}
+                  {s.course_name} — {s.session_date} {s.session_time}
                   <button className="delete-btn" onClick={() => handleDeleteSession(s.session_id)}>Delete</button>
                 </li>
               ))}
@@ -162,7 +194,6 @@ const ManageSessions = () => {
           )}
         </div>
 
-        {/* VIEW SESSIONS */}
         <div className="users-section">
           <button className="users-btn" onClick={() => setExpandView(!expandView)}>
             View Sessions
@@ -174,7 +205,8 @@ const ManageSessions = () => {
                   <tr>
                     <th>Course</th>
                     <th>Date</th>
-                    <th>Topic</th>
+                    <th>Time</th>
+                    <th>Duration</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -182,7 +214,8 @@ const ManageSessions = () => {
                     <tr key={s.session_id}>
                       <td>{s.course_name}</td>
                       <td>{s.session_date}</td>
-                      <td>{s.session_topic || '—'}</td>
+                      <td>{s.session_time}</td>
+                      <td>{s.duration || '02:00:00'}</td>
                     </tr>
                   ))}
                 </tbody>
