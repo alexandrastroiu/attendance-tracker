@@ -10,7 +10,7 @@ session_start();
 try {
     // Validate if user is logged in
     if (!isset($_SESSION['user_id'])) {
-        echo json_encode(['error'=> 'Not logged in']);
+        echo json_encode(['success' => false,'error'=> 'Not logged in']);
         exit;
     }
 
