@@ -35,11 +35,16 @@ try {
     $data = json_decode(file_get_contents("php://input"), true);
     $session_id = isset($data["session_id"]) ? intval($data["session_id"]) : null;
 
+    if ($session_id === null || $session_id <= 0) {
+        echo json_encode(['success'=>false,'error'=> 'Invalid session ID']);
+        exit;
+    }
+
     $conn->beginTransaction();
 
     // Delete attendance tied to the course session
     $deleteAttendance = $conn->prepare("
-    DELETE FROM Attendace
+    DELETE FROM Attendance
     WHERE session_id = :session_id
     ");
     $deleteAttendance->bindParam(":session_id", $session_id, PDO::PARAM_INT);
