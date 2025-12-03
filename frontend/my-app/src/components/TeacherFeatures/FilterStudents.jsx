@@ -49,7 +49,9 @@ const FilterStudents = () => {
         const data = await response.json();
         if (data.error) {
           setErrorStudents(data.error);
+          setStudents([]);
         } else {
+          setErrorStudents(null);
           setStudents(data);
         }
       } catch (err) {
@@ -92,7 +94,7 @@ const FilterStudents = () => {
         {loadingStudents && <p className="message-text">Loading students...</p>}
         {errorStudents && <p className="message-text" style={{ color: 'red' }}>{errorStudents}</p>}
 
-        {!loadingStudents && students.length > 0 && (
+        {!loadingStudents && !errorStudents && students.length > 0 && (
           <div className="table-wrapper">
             <table className="filter-table">
               <thead>
