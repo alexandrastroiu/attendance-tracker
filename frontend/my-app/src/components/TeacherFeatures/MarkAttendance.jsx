@@ -83,6 +83,7 @@ const TeacherMarkAttendance = () => {
       .then(res => res.json())
       .then(data => {
         setMessage(data.success ? "Attendance saved." : "Error saving attendance.");
+        setTimeout(() => setMessage(""), 5000); //clear message after 5 seconds
       })
       .catch(err => console.error(err));
   };
