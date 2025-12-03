@@ -12,7 +12,7 @@ const Home = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('userRole');
-    navigate('/login');
+    navigate('/main');
   };
 
   const renderStudentMenu = () => (
