@@ -13,6 +13,7 @@ import Users from './components/AdminFeatures/AddRemoveUsers';
 import ManageCourses from './components/AdminFeatures/ManageCourses';
 import ManageEnrollments from './components/AdminFeatures/ManageEnrollment';
 import ManageSessions from './components/AdminFeatures/ManageSessions';
+import Main from './components/Mainpage/MainPage';
 
 function App() {
   //const userRole = localStorage.getItem('userRole'); // check if user is logged in
@@ -64,8 +65,10 @@ function App() {
 
           <Route path="/managesessions" element={<ManageSessions/>} />
 
+          <Route path="/main" element={<Main />} />
+
         {/* Catch-all route: redirect unknown URLs to login */}
-        <Route path="*" element={<Navigate to="/login" />} />
+        <Route path="*" element={<Navigate to="/main" />} />
       </Routes>
     </Router>
   );
