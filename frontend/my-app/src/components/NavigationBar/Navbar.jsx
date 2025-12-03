@@ -12,7 +12,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("userRole");
-    navigate("/login");
+    navigate("/main");
   };
 
   return (
