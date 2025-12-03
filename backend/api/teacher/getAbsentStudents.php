@@ -74,6 +74,7 @@ FROM Attendance A
 JOIN Course_Sessions CS ON CS.session_id = A.session_id
 WHERE CS.course_id = :course_id
 AND A.attendance_status = 'absent'
+AND DATE(CS.session_date) <= CURDATE()
 GROUP BY A.student_id
 ) AS absence_count ON S.student_id = absence_count.student_id
 WHERE CE.course_id = :course_id
