@@ -40,7 +40,7 @@ try {
     LEFT JOIN Attendance A
     ON A.session_id = S.session_id AND A.student_id = :student_id
     WHERE S.course_id = :course_id
-    AND S.session_date <= CURDATE()
+    AND DATE(S.session_date) <= CURDATE()
     ";
 
     switch ($sort) {
