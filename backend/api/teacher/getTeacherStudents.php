@@ -35,7 +35,7 @@ $teacher_id = $teacher["teacher_id"];
 // Get students enrolled in any course taught by logged in teacher
 $getStudents = $conn->prepare("
 SELECT S.student_id,
-CONACT(S.first_name, ' ', S.last_name) AS student_name
+CONCAT(S.first_name, ' ', S.last_name) AS student_name
 FROM Students S
 WHERE S.student_id IN (
 SELECT CE.student_id
