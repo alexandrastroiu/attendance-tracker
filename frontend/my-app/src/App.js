@@ -14,6 +14,7 @@ import ManageCourses from './components/AdminFeatures/ManageCourses';
 import ManageEnrollments from './components/AdminFeatures/ManageEnrollment';
 import ManageSessions from './components/AdminFeatures/ManageSessions';
 import Main from './components/Mainpage/MainPage';
+import MyStudents from './components/TeacherFeatures/MyStudents';
 
 function App() {
   //const userRole = localStorage.getItem('userRole'); // check if user is logged in
@@ -54,6 +55,8 @@ function App() {
          <Route path="/markattendance" element={<MarkAttendance />} />
 
          <Route path="/filterstudents" element={<FilterStudents />} />
+
+         <Route path="/mystudents" element={<MyStudents />} />
 
          <Route path="/attendancereport" element={<AttendanceReport />} />
 

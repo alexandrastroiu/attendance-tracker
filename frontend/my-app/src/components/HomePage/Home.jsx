@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
-import { FaBook, FaCheckCircle, FaUserClock, FaUsers, FaUserPlus, FaClipboardList, FaUserCircle } from 'react-icons/fa';
+import { FaBook, FaCheckCircle, FaUserClock, FaUsers, FaUserPlus, FaClipboardList, FaUserCircle, FaGraduationCap } from 'react-icons/fa';
 import Navbar from "../NavigationBar/Navbar";
 
 
@@ -45,6 +45,10 @@ const Home = () => {
       <div className="card" onClick={() => navigate("/filterstudents")}>
         <FaUsers className="card-icon"/>
         Filter Students
+      </div>
+      <div className="card" onClick={() => navigate("/mystudents")}>
+        <FaGraduationCap className="card-icon"/>
+        My Students
       </div>
       <div className="card" onClick={() => navigate("/attendancereport")}>
         <FaClipboardList className="card-icon"/>

@@ -44,6 +44,7 @@ const Navbar = () => {
             <button onClick={() => navigate("/teachercourses")}> {!collapsed && <span>My Courses</span>}</button>
             <button onClick={() => navigate("/markattendance")}> {!collapsed && <span>Mark Attendance</span>}</button>
             <button onClick={() => navigate("/filterstudents")}> {!collapsed && <span>Filter Students</span>}</button>
+            <button onClick={() => navigate("/mystudents")}> {!collapsed && <span>My Students</span>}</button>
             <button onClick={() => navigate("/attendancereport")}> {!collapsed && <span>Attendance Rates</span>}</button>
             <button onClick={() => navigate("/profile")}> {!collapsed && <span>My Profile</span>}</button>
           </>
