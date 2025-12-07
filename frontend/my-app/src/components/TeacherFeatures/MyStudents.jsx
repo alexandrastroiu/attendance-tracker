@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./MyStudents.css"; // make a new CSS file or reuse styling
+import Navbar from "../NavigationBar/Navbar";
 
 const MyStudents = () => {
   const [students, setStudents] = useState([]);
@@ -38,6 +39,7 @@ const MyStudents = () => {
 
   return (
     <div className="students-page">
+      <Navbar/>
       <div className="students-card">
         <h1 className="students-header">My Students</h1>
         <div className="students-table-wrapper">
