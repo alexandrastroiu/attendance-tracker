@@ -34,15 +34,18 @@ $teacher_id = $teacher["teacher_id"];
 
 // Get students enrolled in any course taught by logged in teacher
 $getStudents = $conn->prepare("
-SELECT S.student_id,
+SELECT 
+S.student_id,
+S.group_id,
+SG.group_name,
 CONCAT(S.first_name, ' ', S.last_name) AS student_name
 FROM Students S
+JOIN Student_Groups SG ON S.group_id = SG.group_id
 WHERE S.student_id IN (
 SELECT CE.student_id
 FROM Course_Enrollment CE
 JOIN Courses C ON C.course_id = CE.course_id
-WHERE C.teacher_id = :teacher_id
-)
+WHERE C.teacher_id = :teacher_id)
 ORDER BY student_name
 ");
 
