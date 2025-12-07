@@ -23,7 +23,7 @@ export default function Main() {
 
         <h2 className="home-dept-text">Department of Computer Science and Engineering</h2>
 
-        <h1 className="home-title">Attendance Management Website</h1>
+        <h1 className="home-title">Attendance Tracker</h1>
         <div className="home-underline"></div>
 
         <p className="home-description">

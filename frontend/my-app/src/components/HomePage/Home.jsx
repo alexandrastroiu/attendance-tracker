@@ -90,7 +90,7 @@ const Home = () => {
     <div className="home-container">
       <Navbar />
       <header className="home-header">
-        <h1>Faculty of Computer Science  & Engineering -  Attendance Management</h1>
+        <h1>Faculty of Computer Science  & Engineering -  Attendance Tracker</h1>
         
         <button className="logout-button" onClick={handleLogout}>
           Logout
