@@ -64,6 +64,7 @@ $sessionsQuery = $conn->prepare("
 SELECT session_id, session_date
 FROM Course_Sessions
 WHERE course_id = :course_id
+AND DATE(session_date) <= CURDATE()
 ORDER BY session_date ASC
  ");
 $sessionsQuery->bindParam(":course_id", $course_id);

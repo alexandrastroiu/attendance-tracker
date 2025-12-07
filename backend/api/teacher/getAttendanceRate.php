@@ -78,7 +78,7 @@ $totalStudentsEnrolled = $totalStudents->fetch(PDO::FETCH_ASSOC)['total_students
 $totalClassesQuery = "
 SELECT COUNT(DISTINCT session_date) AS total_classes
 FROM Course_Sessions
-WHERE course_id = :course_id AND session_date <= CURDATE()
+WHERE course_id = :course_id AND DATE(session_date) <= CURDATE()
 ";
 $totalClasses = $conn->prepare($totalClassesQuery);
 $totalClasses->bindParam(":course_id", $course_id, PDO::PARAM_INT);
@@ -95,7 +95,7 @@ JOIN Course_Sessions CS ON A.session_id = CS.session_id"
 . ($group_id > 0 ? " JOIN Students S ON A.student_id = S.student_id" : "") . "
 WHERE CS.course_id = :course_id
 AND A.attendance_status = 'present'
-AND CS.session_date <= CURDATE()"
+AND DATE(CS.session_date) <= CURDATE()"
 . ($group_id > 0 ? " AND S.group_id = :group_id" : "");
 
 
