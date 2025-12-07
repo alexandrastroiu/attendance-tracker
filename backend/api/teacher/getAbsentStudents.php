@@ -9,6 +9,7 @@ session_start();
 
 define("MAX_ABSENCES", 5);
 
+try{
 // Validate user
 if (!isset($_SESSION['user_id'])) {
     echo json_encode(['error'=> "Not logged in"]);
@@ -93,5 +94,9 @@ if (!$students) {
 
 // Convert from PHP array to JSON format
 echo json_encode($students);
+}
+catch (Exception $e) {
+    echo json_encode(["error"=> $e->getMessage()]);
+}
 
 ?>

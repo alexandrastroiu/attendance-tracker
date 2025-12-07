@@ -7,6 +7,7 @@ header('Content-Type: application/json');
 require_once __DIR__ . '/../../config/dbconnect.php';
 session_start();
 
+try{
 // Verify if user is logged in
 if (!isset($_SESSION['user_id'])) {
     echo json_encode(["error" => "Not logged in"]);
@@ -59,6 +60,23 @@ if (!$course) {
     exit;
 }
 
+// Check if the teacher has any courses
+$teacherCoursesQuery = $conn->prepare("
+    SELECT COUNT(*) AS total_courses
+    FROM Courses
+    WHERE teacher_id = :teacher_id
+");
+$teacherCoursesQuery->bindParam(":teacher_id", $teacher_id, PDO::PARAM_INT);
+$teacherCoursesQuery->execute();
+$totalCourses = $teacherCoursesQuery->fetch(PDO::FETCH_ASSOC)['total_courses'];
+
+// If no courses, return immediately
+if ($totalCourses == 0) {
+    echo json_encode(["error" => "No courses found for this teacher"]);
+    exit;
+}
+
+
 $course_id = $course["course_id"];
 
 $insertAttendanceQuery = $conn->prepare("
@@ -80,5 +98,8 @@ foreach ($attendance as $record) {
 }
 
 echo json_encode(["success" => true, "message" => "Attendance successfully saved"]);
-
+}
+catch (Exception $e) {
+    echo json_encode(["error"=> $e->getMessage()]);
+}
 ?>
