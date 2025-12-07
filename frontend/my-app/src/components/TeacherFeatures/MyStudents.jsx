@@ -46,7 +46,6 @@ const MyStudents = () => {
               <tr>
                 <th>#</th>
                 <th>Student Name</th>
-                <th>Student ID</th>
               </tr>
             </thead>
             <tbody>
@@ -54,7 +53,6 @@ const MyStudents = () => {
                 <tr key={student.student_id}>
                   <td>{index + 1}</td>
                   <td>{student.student_name}</td>
-                  <td>{student.student_id}</td>
                 </tr>
               ))}
             </tbody>
