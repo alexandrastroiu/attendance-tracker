@@ -18,17 +18,26 @@ export default function AttendanceReport() {
   const [attendanceData, setAttendanceData] = useState(null);
   const [loading, setLoading] = useState(false);
 
-
   useEffect(() => {
     fetch(
       "http://localhost:8888/management_attendance/attendance-tracker/backend/api/teacher/getTeacherCourses.php",
       { credentials: "include" }
     )
       .then(res => res.json())
-      .then(data => setCourses(data))
-      .catch(console.error);
+      .then(data => {
+        
+        if (Array.isArray(data)) {
+          setCourses(data);
+        } else {
+          setCourses([]); 
+          console.warn(data.error || "No courses returned");
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        setCourses([]); 
+      });
   }, []);
-
 
   useEffect(() => {
     if (!selectedCourse) return;
@@ -42,7 +51,7 @@ export default function AttendanceReport() {
     fetch(url, { credentials: "include" })
       .then(res => res.json())
       .then(data => {
-          console.log("Attendance data:", data)
+        console.log("Attendance data:", data)
         setAttendanceData(data);
         setLoading(false);
       })
@@ -80,46 +89,50 @@ export default function AttendanceReport() {
   return (
     <div className="attendance-report-page">
       <Navbar />
-    <div className="attendance-report-card">
-      <h1 className="attendance-report-header">Attendance Report</h1>
+      <div className="attendance-report-card">
+        <h1 className="attendance-report-header">Attendance Report</h1>
 
-      <div className="attendance-report-controls">
-        <div>
-          <label className="attendance-report-label">Course: </label>
-          <select
-            value={selectedCourse}
-            onChange={e => setSelectedCourse(e.target.value)}
-            className="attendance-report-select"
-          >
-            <option value="">Select a course</option>
-            {courses.map(course => (
-              <option key={course.course_id} value={course.course_id}>
-                {course.course_name}
-              </option>
-            ))}
-          </select>
+        <div className="attendance-report-controls">
+          <div>
+            <label className="attendance-report-label">Course: </label>
+            <select
+              value={selectedCourse}
+              onChange={e => setSelectedCourse(e.target.value)}
+              className="attendance-report-select"
+            >
+              <option value="">Select a course</option>
+              {courses.length > 0 ? (
+                courses.map(course => (
+                  <option key={course.course_id} value={course.course_id}>
+                    {course.course_name}
+                  </option>
+                ))
+              ) : (
+                <option value="">No courses available</option>
+              )}
+            </select>
+          </div>
+
+          <div>
+            <label className="attendance-report-label">Group: </label>
+            <select
+              value={selectedGroup}
+              onChange={e => setSelectedGroup(parseInt(e.target.value))}
+              className="attendance-report-select"
+            >
+              <option value={0}>Total</option>
+              {GROUPS.map(group => (
+                <option key={group.id} value={group.id}>
+                  {group.name}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
 
-        <div>
-          <label className="attendance-report-label">Group: </label>
-          <select
-            value={selectedGroup}
-            onChange={e => setSelectedGroup(parseInt(e.target.value))}
-            className="attendance-report-select"
-          >
-            <option value={0}>Total</option>
-            {GROUPS.map(group => (
-              <option key={group.id} value={group.id}>
-                {group.name}
-              </option>
-            ))}
-          </select>
-        </div>
+        {loading && <p className="attendance-report-message">Loading attendance...</p>}
+        {renderBlocks()}
       </div>
-
-      {loading && <p className="attendance-report-message">Loading attendance...</p>}
-      {renderBlocks()}
-       </div>
     </div>
   );
 }

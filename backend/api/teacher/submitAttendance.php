@@ -43,23 +43,6 @@ if (!$teacher) {
 
 $teacher_id = $teacher["teacher_id"];
 
-$courseQuery = $conn->prepare("
-    SELECT C.course_id
-    FROM Course_Sessions CS
-    JOIN Courses C ON C.course_id = CS.course_id
-    WHERE CS.session_id = :sid AND C.teacher_id = :tid
-");
-$courseQuery->bindParam(":sid", $session_id);
-$courseQuery->bindParam(":tid", $teacher_id);
-$courseQuery->execute();
-$course = $courseQuery->fetch(PDO::FETCH_ASSOC);
-
-
-if (!$course) {
-    echo json_encode(["error" => "You are not authorized to record this attendance"]);
-    exit;
-}
-
 // Check if the teacher has any courses
 $teacherCoursesQuery = $conn->prepare("
     SELECT COUNT(*) AS total_courses
@@ -76,6 +59,22 @@ if ($totalCourses == 0) {
     exit;
 }
 
+$courseQuery = $conn->prepare("
+    SELECT C.course_id
+    FROM Course_Sessions CS
+    JOIN Courses C ON C.course_id = CS.course_id
+    WHERE CS.session_id = :sid AND C.teacher_id = :tid
+");
+$courseQuery->bindParam(":sid", $session_id);
+$courseQuery->bindParam(":tid", $teacher_id);
+$courseQuery->execute();
+$course = $courseQuery->fetch(PDO::FETCH_ASSOC);
+
+
+if (!$course) {
+    echo json_encode(["error" => "You are not authorized to record this attendance"]);
+    exit;
+}
 
 $course_id = $course["course_id"];
 
