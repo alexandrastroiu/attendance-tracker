@@ -7,6 +7,7 @@ header('Content-Type: application/json');
 require_once __DIR__ . '/../../config/dbconnect.php';
 session_start();
 
+try{
 if (!isset($_SESSION['user_id'])) {
     echo json_encode(["error" => "Notlogged in"]);
     exit;
@@ -49,5 +50,8 @@ if (!$teacherCourses) {
 }
 
 echo json_encode($teacherCourses);
-
+}
+catch(Exception $e) {
+    echo json_encode(["error"=> $e->getMessage()]);
+}
 ?>
