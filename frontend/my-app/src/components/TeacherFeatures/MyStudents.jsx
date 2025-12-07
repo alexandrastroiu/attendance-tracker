@@ -46,6 +46,7 @@ const MyStudents = () => {
               <tr>
                 <th>#</th>
                 <th>Student Name</th>
+                <th>Group Name</th>
               </tr>
             </thead>
             <tbody>
@@ -53,6 +54,7 @@ const MyStudents = () => {
                 <tr key={student.student_id}>
                   <td>{index + 1}</td>
                   <td>{student.student_name}</td>
+                  <td>{student.group_name}</td>
                 </tr>
               ))}
             </tbody>
