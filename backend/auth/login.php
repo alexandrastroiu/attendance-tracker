@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
-    
+
     $password = $_POST['password'];
 
 
@@ -47,20 +47,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'message' => 'Login successful',
             'userRole' => $user['user_role']
         ]);
-    }
-    else {
+    } else {
         echo json_encode([
             'success' => false,
             'message' => 'Invalid username or password'
         ]);
 
     }
-}
-else {
-        echo json_encode([
-            'success' => false,
-            'message' => 'Invalid request'
-        ]);
+} else {
+    echo json_encode([
+        'success' => false,
+        'message' => 'Invalid request'
+    ]);
 }
 
 ?>

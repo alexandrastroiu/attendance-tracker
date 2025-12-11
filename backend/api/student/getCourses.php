@@ -10,9 +10,9 @@ session_start(); // Resume the session or start a new session
 try {
 
     if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(200);
-    exit();
-}
+        http_response_code(200);
+        exit();
+    }
 
 
     if (!isset($_SESSION['student_id'])) {
@@ -44,8 +44,7 @@ try {
     //Encode data in JSON format
     echo json_encode($studentCourses);
 
-}
-catch (Exception $e) {
+} catch (Exception $e) {
     // Error handling
     echo json_encode(["error" => $e->getMessage()]);
 }

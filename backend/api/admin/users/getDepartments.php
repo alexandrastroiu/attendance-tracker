@@ -17,8 +17,7 @@ try {
     $dep = $departments->fetchAll(PDO::FETCH_ASSOC);
 
     echo json_encode($dep);
-}
-catch (Exception $e) {
-    echo json_encode(["error"=> $e->getMessage()]);
+} catch (Exception $e) {
+    echo json_encode(["error" => $e->getMessage()]);
 }
 ?>

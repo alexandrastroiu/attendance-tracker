@@ -9,7 +9,7 @@ session_start();
 
 // Error handling
 try {
-     // Validate if user is logged in
+    // Validate if user is logged in
     if (!isset($_SESSION['user_id'])) {
         echo json_encode(["success" => false, 'error' => 'Not logged in']);
         exit;
@@ -35,10 +35,10 @@ try {
 
     $data = json_decode(file_get_contents("php://input"), true);
 
-    $course_id = isset($data["course_id"]) ? intval($data["course_id"])  : null;
+    $course_id = isset($data["course_id"]) ? intval($data["course_id"]) : null;
     $course_name = trim($data["course_name"] ?? "");
     $course_type = $data["course_type"] ?? "";
-    $teacher_id = isset($data["teacher_id"]) ? intval($data["teacher_id"])  : null;
+    $teacher_id = isset($data["teacher_id"]) ? intval($data["teacher_id"]) : null;
 
     // Validate input (required fields)
     if (!$course_id) {
@@ -86,7 +86,7 @@ try {
         echo json_encode(["success" => false, "error" => "Another course with same name & type already exists"]);
         exit;
     }
-    
+
     // Update course
     $updatecourse = $conn->prepare("
     UPDATE Courses
@@ -107,9 +107,8 @@ try {
         echo json_encode(["success" => false, "error" => "Failed to update course"]);
     }
 
-}
-catch (Exception $e) {
-echo json_encode(["success" => false, "error"=> $e->getMessage()]);
+} catch (Exception $e) {
+    echo json_encode(["success" => false, "error" => $e->getMessage()]);
 }
 
 ?>

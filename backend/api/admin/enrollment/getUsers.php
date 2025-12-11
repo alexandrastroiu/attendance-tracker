@@ -22,9 +22,8 @@ try {
     $users = $usersQuery->fetchAll(PDO::FETCH_ASSOC);
 
     echo json_encode($users);
-}
-catch (Exception $e) {
-    echo json_encode(["error"=> $e->getMessage()]);
+} catch (Exception $e) {
+    echo json_encode(["error" => $e->getMessage()]);
 }
 
 ?>

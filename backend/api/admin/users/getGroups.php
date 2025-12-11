@@ -17,8 +17,7 @@ try {
     $groups = $studentGroups->fetchAll(PDO::FETCH_ASSOC);
 
     echo json_encode($groups);
-}
-catch (Exception $e) {
-    echo json_encode(["error"=> $e->getMessage()]);
+} catch (Exception $e) {
+    echo json_encode(["error" => $e->getMessage()]);
 }
 ?>

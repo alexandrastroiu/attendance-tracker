@@ -7,98 +7,97 @@ header('Content-Type: application/json');
 require_once __DIR__ . '/../../config/dbconnect.php';
 session_start();
 
-try{
-// Verify if user is logged in
-if (!isset($_SESSION['user_id'])) {
-    echo json_encode(["error" => "Not logged in"]);
-    exit;
-}
+try {
+    // Verify if user is logged in
+    if (!isset($_SESSION['user_id'])) {
+        echo json_encode(["error" => "Not logged in"]);
+        exit;
+    }
 
-$user_id = intval($_SESSION["user_id"]);
+    $user_id = intval($_SESSION["user_id"]);
 
-// Fetch POST data
-$data = json_decode(file_get_contents("php://input"), true);
+    // Fetch POST data
+    $data = json_decode(file_get_contents("php://input"), true);
 
-$session_id = $data["session_id"];
-$attendance = $data["attendance"];
+    $session_id = $data["session_id"];
+    $attendance = $data["attendance"];
 
-if (!$session_id || !$attendance) {
-    echo json_encode(["error"=> "Session ID or attendance data missing"]);
-    exit;
-}
+    if (!$session_id || !$attendance) {
+        echo json_encode(["error" => "Session ID or attendance data missing"]);
+        exit;
+    }
 
-$teacherQuery = $conn->prepare("
+    $teacherQuery = $conn->prepare("
 SELECT teacher_id
 FROM Teachers
 WHERE user_id = :user_id
 ");
-$teacherQuery->bindParam(":user_id", $user_id, PDO::PARAM_INT);
-$teacherQuery->execute();
-$teacher = $teacherQuery->fetch(PDO::FETCH_ASSOC);
+    $teacherQuery->bindParam(":user_id", $user_id, PDO::PARAM_INT);
+    $teacherQuery->execute();
+    $teacher = $teacherQuery->fetch(PDO::FETCH_ASSOC);
 
-if (!$teacher) {
-    echo json_encode(["error"=> "Teacher not found"]);
-    exit;
-}
+    if (!$teacher) {
+        echo json_encode(["error" => "Teacher not found"]);
+        exit;
+    }
 
-$teacher_id = $teacher["teacher_id"];
+    $teacher_id = $teacher["teacher_id"];
 
-// Check if the teacher has any courses
-$teacherCoursesQuery = $conn->prepare("
+    // Check if the teacher has any courses
+    $teacherCoursesQuery = $conn->prepare("
     SELECT COUNT(*) AS total_courses
     FROM Courses
     WHERE teacher_id = :teacher_id
 ");
-$teacherCoursesQuery->bindParam(":teacher_id", $teacher_id, PDO::PARAM_INT);
-$teacherCoursesQuery->execute();
-$totalCourses = $teacherCoursesQuery->fetch(PDO::FETCH_ASSOC)['total_courses'];
+    $teacherCoursesQuery->bindParam(":teacher_id", $teacher_id, PDO::PARAM_INT);
+    $teacherCoursesQuery->execute();
+    $totalCourses = $teacherCoursesQuery->fetch(PDO::FETCH_ASSOC)['total_courses'];
 
-// If no courses, return immediately
-if ($totalCourses == 0) {
-    echo json_encode(["error" => "No courses found for this teacher"]);
-    exit;
-}
+    // If no courses, return immediately
+    if ($totalCourses == 0) {
+        echo json_encode(["error" => "No courses found for this teacher"]);
+        exit;
+    }
 
-$courseQuery = $conn->prepare("
+    $courseQuery = $conn->prepare("
     SELECT C.course_id
     FROM Course_Sessions CS
     JOIN Courses C ON C.course_id = CS.course_id
     WHERE CS.session_id = :sid AND C.teacher_id = :tid
 ");
-$courseQuery->bindParam(":sid", $session_id);
-$courseQuery->bindParam(":tid", $teacher_id);
-$courseQuery->execute();
-$course = $courseQuery->fetch(PDO::FETCH_ASSOC);
+    $courseQuery->bindParam(":sid", $session_id);
+    $courseQuery->bindParam(":tid", $teacher_id);
+    $courseQuery->execute();
+    $course = $courseQuery->fetch(PDO::FETCH_ASSOC);
 
 
-if (!$course) {
-    echo json_encode(["error" => "You are not authorized to record this attendance"]);
-    exit;
-}
+    if (!$course) {
+        echo json_encode(["error" => "You are not authorized to record this attendance"]);
+        exit;
+    }
 
-$course_id = $course["course_id"];
+    $course_id = $course["course_id"];
 
-$insertAttendanceQuery = $conn->prepare("
+    $insertAttendanceQuery = $conn->prepare("
 INSERT INTO Attendance (session_id, student_id, attendance_status)
 VALUES (:session_id, :student_id, :status)
 ON DUPLICATE KEY UPDATE attendance_status = :status
 ");
 
-foreach ($attendance as $record) {
+    foreach ($attendance as $record) {
 
-    $student_id = $record["student_id"];
-    $status = $record["status"];
+        $student_id = $record["student_id"];
+        $status = $record["status"];
 
-    $insertAttendanceQuery->bindParam(":student_id", $student_id);
-    $insertAttendanceQuery->bindParam(":session_id", $session_id);
-    $insertAttendanceQuery->bindParam(":status", $status);
+        $insertAttendanceQuery->bindParam(":student_id", $student_id);
+        $insertAttendanceQuery->bindParam(":session_id", $session_id);
+        $insertAttendanceQuery->bindParam(":status", $status);
 
-    $insertAttendanceQuery->execute();
-}
+        $insertAttendanceQuery->execute();
+    }
 
-echo json_encode(["success" => true, "message" => "Attendance successfully saved"]);
-}
-catch (Exception $e) {
-    echo json_encode(["error"=> $e->getMessage()]);
+    echo json_encode(["success" => true, "message" => "Attendance successfully saved"]);
+} catch (Exception $e) {
+    echo json_encode(["error" => $e->getMessage()]);
 }
 ?>

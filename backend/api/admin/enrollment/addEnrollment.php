@@ -66,7 +66,7 @@ try {
     $checkDuplicate->execute();
 
     if ($checkDuplicate->rowCount() > 0) {
-        echo json_encode(["success"=> false, "error" => "Student is already enrolled in this course"]);
+        echo json_encode(["success" => false, "error" => "Student is already enrolled in this course"]);
         exit;
     }
 
@@ -82,14 +82,12 @@ try {
 
     if ($result) {
         echo json_encode(["success" => true, "message" => "Enrollment added successfully"]);
-    }
-    else {
+    } else {
         echo json_encode(["success" => false, "error" => "Failed to add enrollment"]);
     }
 
-}
-catch (Exception $e) {
-    echo json_encode(["success"=> false,"error" => $e->getMessage()]);
+} catch (Exception $e) {
+    echo json_encode(["success" => false, "error" => $e->getMessage()]);
 }
 
 ?>

@@ -22,9 +22,8 @@ try {
     $enrollments = $enrollmentsQuery->fetchAll(PDO::FETCH_ASSOC);
 
     echo json_encode($enrollments);
-}
-catch (Exception $e) {
-    echo json_encode(["error"=> $e->getMessage()]);
+} catch (Exception $e) {
+    echo json_encode(["error" => $e->getMessage()]);
 }
 
 ?>

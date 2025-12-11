@@ -10,12 +10,12 @@ session_start();
 try {
     // Validate if user is logged in
     if (!isset($_SESSION['user_id'])) {
-        echo json_encode(['error'=> 'Not logged in']);
+        echo json_encode(['error' => 'Not logged in']);
         exit;
     }
 
     $user_id = intval($_SESSION['user_id']);
- 
+
     $validateAdmin = $conn->prepare("
     SELECT user_role
     FROM Users
@@ -28,7 +28,7 @@ try {
 
     // Validate logged in user is an admin
     if (!$admin || $admin["user_role"] !== 'admin') {
-        echo json_encode(['error'=> 'Access denied. You are not an administrator']);
+        echo json_encode(['error' => 'Access denied. You are not an administrator']);
         exit;
     }
 
@@ -69,10 +69,9 @@ try {
     $insertSession->bindParam(":duration", $duration);
     $insertSession->execute();
 
-        echo json_encode(["success"=>true,"message"=>"Session added"]);
-}
-catch (Exception $e) {
-    echo json_encode(["success"=>false,"error"=>$e->getMessage()]);
+    echo json_encode(["success" => true, "message" => "Session added"]);
+} catch (Exception $e) {
+    echo json_encode(["success" => false, "error" => $e->getMessage()]);
 }
 
 ?>

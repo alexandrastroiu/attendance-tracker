@@ -9,19 +9,18 @@ session_start();
 
 
 try {
- $users = $conn->prepare('
+    $users = $conn->prepare('
  SELECT user_id, username, user_email, user_role
  FROM Users 
  ORDER BY username ASC
  ');
- $users->execute();
- $usr = $users->fetchAll(PDO::FETCH_ASSOC);
+    $users->execute();
+    $usr = $users->fetchAll(PDO::FETCH_ASSOC);
 
-  
- echo json_encode($usr);
-}
-catch (Exception $e) {
-    echo json_encode( ["error" => $e->getMessage()]);
+
+    echo json_encode($usr);
+} catch (Exception $e) {
+    echo json_encode(["error" => $e->getMessage()]);
 }
 
 ?>

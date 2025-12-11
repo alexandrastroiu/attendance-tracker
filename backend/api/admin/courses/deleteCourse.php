@@ -36,7 +36,7 @@ try {
 
     $data = json_decode(file_get_contents("php://input"), true);
 
-    $course_id = isset($data["course_id"]) ? intval($data["course_id"])  : null;
+    $course_id = isset($data["course_id"]) ? intval($data["course_id"]) : null;
 
     if (!$course_id) {
         echo json_encode(["success" => false, 'error' => 'Course required']);
@@ -91,16 +91,15 @@ try {
 
     $conn->commit();
 
-    echo json_encode(["success"=> true,"message"=> "Course deleted successfully from database"]);
+    echo json_encode(["success" => true, "message" => "Course deleted successfully from database"]);
 
-}
-catch (Exception $e) {
-    
+} catch (Exception $e) {
+
     if ($conn->inTransaction()) {
         $conn->rollBack();
     }
 
-    echo json_encode([    "success"=> false,"error"=> $e->getMessage()]);
+    echo json_encode(["success" => false, "error" => $e->getMessage()]);
 }
 
 ?>

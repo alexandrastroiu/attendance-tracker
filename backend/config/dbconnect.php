@@ -13,9 +13,8 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     // Message for successful connection
     // echo "Connected to $db_name successfully.";
-}
-catch (PDOException $e) {
-die ("Could not connect to the database $db_name :" . $e->getMessage());
+} catch (PDOException $e) {
+    die("Could not connect to the database $db_name :" . $e->getMessage());
 }
 
 ?>
