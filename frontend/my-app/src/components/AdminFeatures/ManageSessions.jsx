@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import './Users.css';
+import React, { useEffect, useState } from "react";
+import "./Users.css";
 import Navbar from "../NavigationBar/Navbar";
 
-const BASE_URL = 'http://localhost:8888/management_attendance/attendance-tracker/backend/api/admin/sessions';
-const BASE_URL_COURSES = 'http://localhost:8888/management_attendance/attendance-tracker/backend/api/admin/courses';
+const BASE_URL =
+  "http://localhost:8888/management_attendance/attendance-tracker/backend/api/admin/sessions";
+const BASE_URL_COURSES =
+  "http://localhost:8888/management_attendance/attendance-tracker/backend/api/admin/courses";
 
 const ManageSessions = () => {
   const [sessions, setSessions] = useState([]);
@@ -21,7 +23,7 @@ const ManageSessions = () => {
     course_id: "",
     session_date: "",
     session_time: "08:00:00",
-    duration: "02:00:00",     
+    duration: "02:00:00",
   };
 
   const [sessionForm, setSessionForm] = useState(initialSessionState);
@@ -36,18 +38,21 @@ const ManageSessions = () => {
     const loadAll = async () => {
       try {
         const [sessionRes, courseRes] = await Promise.all([
-          fetch(`${BASE_URL}/getCourseSessions.php`, { credentials: 'include' }),
-          fetch(`${BASE_URL_COURSES}/getCourses.php`, { credentials: 'include' }),
+          fetch(`${BASE_URL}/getCourseSessions.php`, {
+            credentials: "include",
+          }),
+          fetch(`${BASE_URL_COURSES}/getCourses.php`, {
+            credentials: "include",
+          }),
         ]);
 
         const sessionData = await sessionRes.json();
         const courseData = await courseRes.json();
 
         setSessions(sessionData.sessions || []);
-        setCourses(Array.isArray(courseData) ? courseData : []); 
-
+        setCourses(Array.isArray(courseData) ? courseData : []);
       } catch (err) {
-        setError('Failed to fetch data');
+        setError("Failed to fetch data");
       } finally {
         setLoading(false);
       }
@@ -56,13 +61,15 @@ const ManageSessions = () => {
   }, []);
 
   const fetchSessions = async () => {
-    const res = await fetch(`${BASE_URL}/getCourseSessions.php`, { credentials: 'include' });
+    const res = await fetch(`${BASE_URL}/getCourseSessions.php`, {
+      credentials: "include",
+    });
     const data = await res.json();
     setSessions(data.sessions || []);
   };
 
-  const handleChange = e => {
-    setSessionForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  const handleChange = (e) => {
+    setSessionForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleAddSession = async () => {
@@ -74,9 +81,9 @@ const ManageSessions = () => {
     try {
       const res = await fetch(`${BASE_URL}/addCourseSession.php`, {
         method: "POST",
-        headers: { 'Content-Type': 'application/json' },
+        headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify(sessionForm)
+        body: JSON.stringify(sessionForm),
       });
       const data = await res.json();
 
@@ -99,9 +106,9 @@ const ManageSessions = () => {
     try {
       const res = await fetch(`${BASE_URL}/deleteCourseSession.php`, {
         method: "POST",
-        headers: { 'Content-Type': 'application/json' },
+        headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify({ session_id: id })
+        body: JSON.stringify({ session_id: id }),
       });
 
       const data = await res.json();
@@ -112,14 +119,14 @@ const ManageSessions = () => {
       } else {
         alert(data.error);
       }
-
     } catch {
       alert("Error deleting session");
     }
   };
 
-  if (loading) return <p style={{ textAlign:'center' }}>Loading...</p>;
-  if (error) return <p style={{ textAlign:'center', color:'red' }}>{error}</p>;
+  if (loading) return <p style={{ textAlign: "center" }}>Loading...</p>;
+  if (error)
+    return <p style={{ textAlign: "center", color: "red" }}>{error}</p>;
 
   return (
     <div className="users-page">
@@ -128,7 +135,10 @@ const ManageSessions = () => {
         <h1 className="users-header">Manage Course Sessions</h1>
 
         <div className="users-section">
-          <button className="users-btn" onClick={() => setExpandAdd(!expandAdd)}>
+          <button
+            className="users-btn"
+            onClick={() => setExpandAdd(!expandAdd)}
+          >
             Add Session
           </button>
           {expandAdd && (
@@ -169,7 +179,6 @@ const ManageSessions = () => {
                 ))}
               </select>
 
-
               <button className="users-submit" onClick={handleAddSession}>
                 Submit
               </button>
@@ -178,16 +187,24 @@ const ManageSessions = () => {
         </div>
 
         <div className="users-section">
-          <button className="users-btn" onClick={() => setExpandDelete(!expandDelete)}>
+          <button
+            className="users-btn"
+            onClick={() => setExpandDelete(!expandDelete)}
+          >
             Delete Session
           </button>
 
           {expandDelete && (
             <ul className="users-delete-list">
-              {sessions.map(s => (
+              {sessions.map((s) => (
                 <li key={s.session_id}>
                   {s.course_name} — {s.session_date} {s.session_time}
-                  <button className="delete-btn" onClick={() => handleDeleteSession(s.session_id)}>Delete</button>
+                  <button
+                    className="delete-btn"
+                    onClick={() => handleDeleteSession(s.session_id)}
+                  >
+                    Delete
+                  </button>
                 </li>
               ))}
             </ul>
@@ -195,7 +212,10 @@ const ManageSessions = () => {
         </div>
 
         <div className="users-section">
-          <button className="users-btn" onClick={() => setExpandView(!expandView)}>
+          <button
+            className="users-btn"
+            onClick={() => setExpandView(!expandView)}
+          >
             View Sessions
           </button>
           {expandView && (
@@ -210,12 +230,12 @@ const ManageSessions = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {sessions.map(s => (
+                  {sessions.map((s) => (
                     <tr key={s.session_id}>
                       <td>{s.course_name}</td>
                       <td>{s.session_date}</td>
                       <td>{s.session_time}</td>
-                      <td>{s.duration || '02:00:00'}</td>
+                      <td>{s.duration || "02:00:00"}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -223,7 +243,6 @@ const ManageSessions = () => {
             </div>
           )}
         </div>
-
       </div>
     </div>
   );

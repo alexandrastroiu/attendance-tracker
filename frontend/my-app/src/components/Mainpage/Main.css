@@ -1,8 +1,10 @@
+/**  Main page styles **/
+
 .home-body {
   margin: 0;
   font-family: "Inter", Arial, sans-serif;
-  /**background: #93effc;**/
-  background: linear-gradient(#8cf3fce4, #0a0049);  background: linear-gradient(#8cf3fce4, #0a0049);
+  background: linear-gradient(#8cf3fce4, #0a0049);
+  background: linear-gradient(#8cf3fce4, #0a0049);
 }
 
 .home-wrapper {

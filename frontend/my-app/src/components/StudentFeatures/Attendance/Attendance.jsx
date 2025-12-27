@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Attendance.css";
-import Navbar from '../../NavigationBar/Navbar';
+import Navbar from "../../NavigationBar/Navbar";
 
 const Attendance = () => {
   const [courses, setCourses] = useState([]);
@@ -111,7 +111,7 @@ const Attendance = () => {
                 attendance.map((att, index) => (
                   <tr key={index}>
                     <td>{att.session_date}</td>
-                    <td>{att.attendance_status}</td> {/* keep null as null */}
+                    <td>{att.attendance_status}</td>
                   </tr>
                 ))
               )}

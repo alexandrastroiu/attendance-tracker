@@ -1,13 +1,12 @@
-
 .students-page {
   max-width: 1200px;
   margin: 50px auto;
   padding: 20px;
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
 }
 
 .students-header {
-  color: #6419f0; 
+  color: #6419f0;
   font-size: 35px;
   font-weight: 700;
   text-align: center;
@@ -19,10 +18,10 @@
   border-radius: 12px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
   padding: 30px;
-  overflow-x: auto; 
-  width: fit-content; 
-  max-width: 90%; 
-  margin: 0 auto; 
+  overflow-x: auto;
+  width: fit-content;
+  max-width: 90%;
+  margin: 0 auto;
   box-sizing: border-box;
 }
 
@@ -33,12 +32,12 @@
 .students-table {
   border-collapse: collapse;
   font-size: 16px;
-  min-width: 1000px;  
+  min-width: 1000px;
   table-layout: auto;
 }
 
 .students-table th {
-  background-color: #6419f0; 
+  background-color: #6419f0;
   color: #fff;
   font-weight: 600;
   text-align: left;
@@ -46,17 +45,17 @@
 }
 
 .students-table td {
-  border: 1px solid #ddd; 
+  border: 1px solid #ddd;
   padding: 12px 20px;
   color: #333;
 }
 
 .students-table tr:nth-child(even) {
-  background-color: #f5f5f5; 
+  background-color: #f5f5f5;
 }
 
 .students-table tr:hover {
-  background-color: #e0d4f7; 
+  background-color: #e0d4f7;
 }
 
 @media (max-width: 768px) {

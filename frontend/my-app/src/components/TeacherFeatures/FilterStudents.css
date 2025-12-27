@@ -1,10 +1,10 @@
-/** Filtering Students Page **/
+/** Filtering Students Page styles **/
 
 .filter-students-page {
   max-width: 100%;
   margin: 50px auto;
   padding: 20px;
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
 }
 
 .filter-students-header {

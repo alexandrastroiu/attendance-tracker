@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import './FilterStudents.css';
-import Navbar from '../NavigationBar/Navbar';
+import React, { useEffect, useState } from "react";
+import "./FilterStudents.css";
+import Navbar from "../NavigationBar/Navbar";
 
 const FilterStudents = () => {
   const [courses, setCourses] = useState([]);
-  const [selectedCourse, setSelectedCourse] = useState('');
+  const [selectedCourse, setSelectedCourse] = useState("");
   const [students, setStudents] = useState([]);
   const [loadingCourses, setLoadingCourses] = useState(true);
   const [loadingStudents, setLoadingStudents] = useState(false);
@@ -16,8 +16,8 @@ const FilterStudents = () => {
     const fetchCourses = async () => {
       try {
         const response = await fetch(
-          'http://localhost:8888/management_attendance/attendance-tracker/backend/api/teacher/getTeacherCourses.php',
-          { credentials: 'include' }
+          "http://localhost:8888/management_attendance/attendance-tracker/backend/api/teacher/getTeacherCourses.php",
+          { credentials: "include" }
         );
         const data = await response.json();
         if (data.error) {
@@ -26,7 +26,7 @@ const FilterStudents = () => {
           setCourses(data);
         }
       } catch (err) {
-        setErrorCourses('Failed to fetch courses');
+        setErrorCourses("Failed to fetch courses");
       } finally {
         setLoadingCourses(false);
       }
@@ -44,7 +44,7 @@ const FilterStudents = () => {
       try {
         const response = await fetch(
           `http://localhost:8888/management_attendance/attendance-tracker/backend/api/teacher/getAbsentStudents.php?course_id=${selectedCourse}`,
-          { credentials: 'include' }
+          { credentials: "include" }
         );
         const data = await response.json();
         if (data.error) {
@@ -55,7 +55,7 @@ const FilterStudents = () => {
           setStudents(data);
         }
       } catch (err) {
-        setErrorStudents('Failed to fetch students');
+        setErrorStudents("Failed to fetch students");
       } finally {
         setLoadingStudents(false);
       }
@@ -68,7 +68,9 @@ const FilterStudents = () => {
     <div className="filter-students-page">
       <Navbar />
       <div className="filter-students-card">
-        <h1 className="filter-students-header">Students exceeding allowed absences</h1>
+        <h1 className="filter-students-header">
+          Students exceeding allowed absences
+        </h1>
 
         {/* Course dropdown */}
         <div className="select-container">
@@ -92,7 +94,11 @@ const FilterStudents = () => {
 
         {/* Students table */}
         {loadingStudents && <p className="message-text">Loading students...</p>}
-        {errorStudents && <p className="message-text" style={{ color: 'red' }}>{errorStudents}</p>}
+        {errorStudents && (
+          <p className="message-text" style={{ color: "red" }}>
+            {errorStudents}
+          </p>
+        )}
 
         {!loadingStudents && !errorStudents && students.length > 0 && (
           <div className="table-wrapper">
@@ -128,4 +134,3 @@ const FilterStudents = () => {
 };
 
 export default FilterStudents;
- 

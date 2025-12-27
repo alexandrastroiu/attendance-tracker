@@ -1,3 +1,5 @@
+/** Attendance report page styles **/
+
 .attendance-report-page {
   max-width: 1200px;
   margin: 50px auto;
@@ -15,7 +17,6 @@
   margin: 10vh auto;
   box-sizing: border-box;
 }
-
 
 .attendance-report-header {
   color: #6419f0;
@@ -53,7 +54,7 @@
 }
 
 .attendance-block {
-  width:40vw;
+  width: 40vw;
   height: fit-content;
   padding: 20px;
   border-radius: 12px;
@@ -73,11 +74,11 @@
 }
 
 .attendance-block.present {
-  background-color: #28a745; 
+  background-color: #28a745;
 }
 
 .attendance-block.absent {
-  background-color: #e51717; 
+  background-color: #e51717;
 }
 
 .attendance-report-message {

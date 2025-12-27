@@ -1,8 +1,10 @@
+/** Attendace page styles **/
+
 .attendance-page {
   max-width: 1300px;
   margin: 50px auto;
   padding: 20px;
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
 }
 
 .attendance-header {
@@ -12,7 +14,6 @@
   font-weight: 700;
   margin-bottom: 60px;
 }
-
 
 .attendance-controls {
   display: flex;
@@ -33,7 +34,6 @@
   border: 1px solid #ccc;
 }
 
-
 .attendance-card {
   background: #fff;
   border-radius: 12px;
@@ -46,11 +46,9 @@
   box-sizing: border-box;
 }
 
-
 .attendance-table-wrapper {
   overflow-x: auto;
 }
-
 
 .attendance-table {
   border-collapse: collapse;
@@ -88,9 +86,9 @@
     font-size: 14px;
   }
   .attendance-controls {
-  display: flex;
-  gap: 30px;
-  margin-bottom: 50px;
-  margin-left: 5vw;
-}
+    display: flex;
+    gap: 30px;
+    margin-bottom: 50px;
+    margin-left: 5vw;
+  }
 }
