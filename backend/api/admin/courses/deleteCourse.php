@@ -91,8 +91,8 @@ try {
 
     $conn->commit();
 
+    // Return message in JSON format
     echo json_encode(["success" => true, "message" => "Course deleted successfully from database"]);
-
 } catch (Exception $e) {
 
     if ($conn->inTransaction()) {
@@ -101,5 +101,3 @@ try {
 
     echo json_encode(["success" => false, "error" => $e->getMessage()]);
 }
-
-?>

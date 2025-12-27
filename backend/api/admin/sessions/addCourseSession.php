@@ -69,9 +69,8 @@ try {
     $insertSession->bindParam(":duration", $duration);
     $insertSession->execute();
 
+    // Return message in JSON format
     echo json_encode(["success" => true, "message" => "Session added"]);
 } catch (Exception $e) {
     echo json_encode(["success" => false, "error" => $e->getMessage()]);
 }
-
-?>

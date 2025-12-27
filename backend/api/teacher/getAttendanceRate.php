@@ -1,4 +1,6 @@
 <?php
+// Returns a list of data related to attendance in JSON format.
+
 header("Access-Control-Allow-Origin: http://localhost:3000");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Credentials: true");
@@ -25,7 +27,7 @@ SELECT teacher_id FROM Teachers WHERE user_id = :user_id LIMIT 1
     $teacherQuery->execute();
     $teacher = $teacherQuery->fetch(PDO::FETCH_ASSOC);
 
-    // Validate teacher
+    // Validate logged in user is a teacher
     if (!$teacher) {
         echo json_encode(["error" => "Teacher not found"]);
         exit;
@@ -57,7 +59,7 @@ SELECT teacher_id FROM Teachers WHERE user_id = :user_id LIMIT 1
 
 
     // GET request
-// get inputs from frontend
+    // Get inputs from frontend
     $course_id = isset($_GET['course_id']) ? intval($_GET['course_id']) : 0;
     $group_id = isset($_GET['group_id']) ? intval($_GET['group_id']) : 0;
 
@@ -134,7 +136,7 @@ AND DATE(CS.session_date) <= CURDATE()"
     $attendances = $totalAttendances->fetch(PDO::FETCH_ASSOC)["total_attendances"];
 
 
-    //Fetch the attendance rate for the selected course
+    // Calculate the attendance rate for the selected course
     $attendanceRateQuery = "
 SELECT ROUND(
     :attendances / NULLIF(
@@ -161,7 +163,7 @@ SELECT ROUND(
     $attendanceRate->execute();
     $attendance_rate = $attendanceRate->fetch(PDO::FETCH_ASSOC)["attendance_rate"];
 
-    // return data in JSON format
+    // Return data in JSON format
     echo json_encode([
         "total_students" => $totalStudentsEnrolled,
         "total_classes" => $totalClasses,
@@ -171,4 +173,3 @@ SELECT ROUND(
 } catch (Exception $e) {
     echo json_encode(["error" => $e->getMessage()]);
 }
-?>

@@ -1,7 +1,9 @@
 <?php
+// Handles authentication
+
 session_start();  // Start the session
-require_once __DIR__ . '/../config/dbconnect.php';// Allow requests from your React app
-header("Access-Control-Allow-Origin: http://localhost:3000"); //allow connection with frontend (React runs on port 3000)
+require_once __DIR__ . '/../config/dbconnect.php'; // Allow requests from React app
+header("Access-Control-Allow-Origin: http://localhost:3000"); // Allow connection with frontend (React runs on port 3000)
 header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Credentials: true");
@@ -52,7 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'success' => false,
             'message' => 'Invalid username or password'
         ]);
-
     }
 } else {
     echo json_encode([
@@ -60,5 +61,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'message' => 'Invalid request'
     ]);
 }
-
-?>

@@ -1,4 +1,6 @@
 <?php
+// Returns the list of students that have more absences than a fixed threshold in JSON format.
+
 header("Access-Control-Allow-Origin: http://localhost:3000");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Credentials: true");
@@ -7,10 +9,10 @@ header('Content-Type: application/json');
 require_once __DIR__ . '/../../config/dbconnect.php';
 session_start();
 
-define("MAX_ABSENCES", 5);
+define("MAX_ABSENCES", 5); // Maximum number of absences
 
 try {
-    // Validate user
+    // Validate user is logged in
     if (!isset($_SESSION['user_id'])) {
         echo json_encode(['error' => "Not logged in"]);
         exit;
@@ -18,6 +20,7 @@ try {
 
     $user_id = intval($_SESSION["user_id"]);
 
+    // Query used to get the teacher ID for the logged in user (if user role is teacher)
     $teacherQuery = $conn->prepare("
 SELECT teacher_id
 FROM Teachers
@@ -27,7 +30,7 @@ WHERE user_id = :user_id
     $teacherQuery->execute();
     $teacher = $teacherQuery->fetch(PDO::FETCH_ASSOC);
 
-    // Validate teacher
+    // Validate logged in user is a teacher
     if (!$teacher) {
         echo json_encode(["error" => "Teacher not found"]);
         exit;
@@ -39,12 +42,13 @@ WHERE user_id = :user_id
     $course_id = isset($_GET["course_id"]) ? intval($_GET["course_id"]) : null;
     $max_absences = MAX_ABSENCES;
 
+    // Validate a course was selected
     if (!$course_id) {
         echo json_encode(["error" => "Course ID is required"]);
         exit;
     }
 
-    // Validate selected course
+    // Validate logged in teacher teaches the selected course
     $courseChechQuery = $conn->prepare("
 SELECT course_id, course_name
 FROM Courses
@@ -62,7 +66,7 @@ WHERE course_id = :course_id AND teacher_id = :teacher_id
     }
 
     // Fetch students enrolled in the selected course that have more absences than a specified threshold
-// Uses subquery
+    // Uses subquery
     $studentsQuery = $conn->prepare("
 SELECT S.student_id, S.first_name, S.last_name, SG.group_name, 
 COALESCE(absence_count.total_absences, 0) AS total_absences
@@ -97,5 +101,3 @@ ORDER BY  S.last_name, S.first_name
 } catch (Exception $e) {
     echo json_encode(["error" => $e->getMessage()]);
 }
-
-?>

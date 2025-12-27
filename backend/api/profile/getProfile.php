@@ -1,4 +1,6 @@
 <?php
+// Returns user profile information in JSON format.
+
 header("Access-Control-Allow-Origin: http://localhost:3000");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Credentials: true");
@@ -46,7 +48,6 @@ WHERE S.user_id = :user_id
         $studentProfileQuery->bindParam(":user_id", $user_id);
         $studentProfileQuery->execute();
         $profile = $studentProfileQuery->fetch(PDO::FETCH_ASSOC);
-
     } else if ($role === "teacher") {
         $teacherProfileQuery = $conn->prepare("
     SELECT T.teacher_id, T.last_name, T.first_name, T.department_id, D.department_name,
@@ -66,5 +67,3 @@ WHERE S.user_id = :user_id
 } catch (Exception $e) {
     echo json_encode(["error" => $e->getMessage()]);
 }
-
-?>

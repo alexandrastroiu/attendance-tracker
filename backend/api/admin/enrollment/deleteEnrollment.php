@@ -68,13 +68,11 @@ try {
 
     $conn->commit();
 
+    // Return message in JSON format
     echo json_encode(["success" => true, "message" => "Enrollment and related attendance deleted successfully"]);
-
 } catch (Exception $e) {
     if ($conn->inTransaction()) {
         $conn->rollBack();
     }
     echo json_encode(["success" => false, "error" => $e->getMessage()]);
 }
-
-?>

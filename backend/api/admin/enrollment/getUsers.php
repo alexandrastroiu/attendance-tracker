@@ -10,7 +10,7 @@ session_start();
 // Error handling
 try {
 
-    // Fetch all students information
+    // Fetch all information about students
     $usersQuery = $conn->prepare("
     SELECT U.user_id, U.username,
     CONCAT(S.first_name, ' ' , S.last_name) AS student_name
@@ -21,9 +21,8 @@ try {
     $usersQuery->execute();
     $users = $usersQuery->fetchAll(PDO::FETCH_ASSOC);
 
+    // Return data in JSON format
     echo json_encode($users);
 } catch (Exception $e) {
     echo json_encode(["error" => $e->getMessage()]);
 }
-
-?>

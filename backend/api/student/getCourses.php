@@ -43,10 +43,7 @@ try {
 
     //Encode data in JSON format
     echo json_encode($studentCourses);
-
 } catch (Exception $e) {
     // Error handling
     echo json_encode(["error" => $e->getMessage()]);
 }
-
-?>

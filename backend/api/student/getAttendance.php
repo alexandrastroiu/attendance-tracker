@@ -13,6 +13,7 @@ try {
         exit();
     }
 
+    // Validate stduent is logged in
     if (!isset($_SESSION['student_id'])) {
         echo json_encode(["error" => "Not logged in"]);
         exit;
@@ -30,7 +31,6 @@ try {
     }
 
     // Base SQL Query
-    //TODO: filtering attendance up to the current date on the backend
     $query = "
     SELECT
     S.session_id,
@@ -52,7 +52,6 @@ try {
             break;
         default: // most recent
             $query .= " ORDER BY S.session_date DESC";
-
     }
 
     $attendanceQuery = $conn->prepare($query);
@@ -65,10 +64,7 @@ try {
 
     // Encode data in JSON format
     echo json_encode($studentAttendance);
-
 } catch (Exception $e) {
     // Error handling
     echo json_encode(["error" => $e->getMessage()]);
 }
-
-?>

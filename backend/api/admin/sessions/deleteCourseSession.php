@@ -59,6 +59,7 @@ try {
 
     $conn->commit();
 
+    // Return message in JSON format
     echo json_encode(["success" => true, "message" => "Course session deleted"]);
 } catch (Exception $e) {
     if ($conn->inTransaction()) {
@@ -66,5 +67,3 @@ try {
     }
     echo json_encode(["success" => false, "error" => $e->getMessage()]);
 }
-
-?>

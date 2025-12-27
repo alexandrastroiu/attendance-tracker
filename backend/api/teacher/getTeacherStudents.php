@@ -1,4 +1,6 @@
 <?php
+// Returns a list of students enrolled in any course taught by logged in teacher in JSON format.
+
 header("Access-Control-Allow-Origin: http://localhost:3000");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Credentials: true");
@@ -24,7 +26,7 @@ $teacherQuery->bindParam(":user_id", $user_id);
 $teacherQuery->execute();
 $teacher = $teacherQuery->fetch(PDO::FETCH_ASSOC);
 
-// Validate teacher
+// Validate logged in user is a teacher
 if (!$teacher) {
     echo json_encode(["error" => "Teacher not found"]);
     exit;
@@ -60,4 +62,3 @@ if (!$students) {
 
 // JSON output
 echo json_encode($students);
-?>

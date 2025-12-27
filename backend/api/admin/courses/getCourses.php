@@ -8,6 +8,7 @@ require_once __DIR__ . '/../../../config/dbconnect.php';
 session_start();
 
 try {
+    // Fetch data about courses
     $courses = $conn->prepare("
     SELECT C.course_id, C.course_name, C.course_type, C.teacher_id,
     CONCAT(T.first_name, ' ', T.last_name) AS teacher_name
@@ -16,10 +17,8 @@ try {
     ");
     $courses->execute();
 
+    // Return data in JSON format
     echo json_encode($courses->fetchAll(PDO::FETCH_ASSOC));
-
 } catch (Exception $e) {
     echo json_encode(["error" => $e->getMessage()]);
 }
-
-?>

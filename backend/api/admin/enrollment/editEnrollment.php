@@ -84,9 +84,6 @@ try {
     } else {
         echo json_encode(["success" => false, "error" => "Failed to update enrollment"]);
     }
-
 } catch (Exception $e) {
     echo json_encode(["success" => false, "error" => $e->getMessage()]);
 }
-
-?>

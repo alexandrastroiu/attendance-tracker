@@ -10,6 +10,7 @@ session_start();
 // Error handling
 try {
 
+    // Fetch all enrollments 
     $enrollmentsQuery = $conn->prepare("
         SELECT CE.student_id, CE.course_id, CE.enrollment_type,
         CONCAT(S.first_name, ' ', S.last_name) AS student_name,
@@ -21,9 +22,8 @@ try {
     $enrollmentsQuery->execute();
     $enrollments = $enrollmentsQuery->fetchAll(PDO::FETCH_ASSOC);
 
+    // Return data in JSON format
     echo json_encode($enrollments);
 } catch (Exception $e) {
     echo json_encode(["error" => $e->getMessage()]);
 }
-
-?>

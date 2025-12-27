@@ -1,4 +1,6 @@
 <?php
+// Returns a success (if attendance was saved) or error message.
+
 header("Access-Control-Allow-Origin: http://localhost:3000");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Credentials: true");
@@ -36,6 +38,7 @@ WHERE user_id = :user_id
     $teacherQuery->execute();
     $teacher = $teacherQuery->fetch(PDO::FETCH_ASSOC);
 
+    // Validate logged in user is a teacher
     if (!$teacher) {
         echo json_encode(["error" => "Teacher not found"]);
         exit;
@@ -53,7 +56,7 @@ WHERE user_id = :user_id
     $teacherCoursesQuery->execute();
     $totalCourses = $teacherCoursesQuery->fetch(PDO::FETCH_ASSOC)['total_courses'];
 
-    // If no courses, return immediately
+    // If teacher has no courses, return immediately
     if ($totalCourses == 0) {
         echo json_encode(["error" => "No courses found for this teacher"]);
         exit;
@@ -70,7 +73,7 @@ WHERE user_id = :user_id
     $courseQuery->execute();
     $course = $courseQuery->fetch(PDO::FETCH_ASSOC);
 
-
+    // Validate logged in teacher teached the course
     if (!$course) {
         echo json_encode(["error" => "You are not authorized to record this attendance"]);
         exit;
@@ -78,6 +81,7 @@ WHERE user_id = :user_id
 
     $course_id = $course["course_id"];
 
+    // Mark attendance (Create an attendnace record or update it if it already exists)
     $insertAttendanceQuery = $conn->prepare("
 INSERT INTO Attendance (session_id, student_id, attendance_status)
 VALUES (:session_id, :student_id, :status)
@@ -100,4 +104,3 @@ ON DUPLICATE KEY UPDATE attendance_status = :status
 } catch (Exception $e) {
     echo json_encode(["error" => $e->getMessage()]);
 }
-?>

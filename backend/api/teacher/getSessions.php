@@ -1,4 +1,6 @@
 <?php
+// Returns a list of sessions for the selected course in JSON format.
+
 header("Access-Control-Allow-Origin: http://localhost:3000");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Credentials: true");
@@ -8,7 +10,7 @@ require_once __DIR__ . '/../../config/dbconnect.php';
 session_start();
 
 try {
-    // Validate user
+    // Validate user is logged in
     if (!isset($_SESSION['user_id'])) {
         echo json_encode(["error" => "Not logged in"]);
         exit;
@@ -25,7 +27,7 @@ WHERE user_id = :user_id
     $teacherQuery->execute();
     $teacher = $teacherQuery->fetch(PDO::FETCH_ASSOC);
 
-    // Validate teacher
+    // Validate logged in user is a teacher
     if (!$teacher) {
         echo json_encode(["error" => "Teacher not found"]);
         exit;
@@ -36,12 +38,13 @@ WHERE user_id = :user_id
     // GET request
     $course_id = isset($_GET["course_id"]) ? intval($_GET["course_id"]) : null;
 
-    // Validate course
+    // Validate course was selected
     if (!$course_id) {
         echo json_encode(["error" => "Course ID is required"]);
         exit;
     }
 
+    // Query to fetch courses for logged in teacher
     $courseCheck = $conn->prepare("
 SELECT course_name, course_id
 FROM Courses
@@ -55,12 +58,13 @@ Where course_id = :course_id AND teacher_id = :teacher_id
 
     $course = $courseCheck->fetch(PDO::FETCH_ASSOC);
 
+    // Validate logged in user teaches the selected course
     if (!$course) {
         echo json_encode(["error" => "Unauthorized: You do not teach this course"]);
         exit;
     }
 
-    // Query to fetch sessions for the selected course
+    // Query to fetch sessions for the selected course (sessions until current date)
     $sessionsQuery = $conn->prepare("
 SELECT session_id, session_date
 FROM Course_Sessions
@@ -82,4 +86,3 @@ ORDER BY session_date ASC
 } catch (Exception $e) {
     echo json_encode(["error" => $e->getMessage()]);
 }
-?>

@@ -1,7 +1,8 @@
 <?php
+// Tests the connection to the database
+
 require_once 'config/dbconnect.php';
 
-// Test query
 try {
     // Check the connection to the database
     $stmt = $conn->query("SELECT DATABASE()");
@@ -10,4 +11,3 @@ try {
 } catch (PDOException $e) {
     echo "Connection test failed: " . $e->getMessage();
 }
-?>

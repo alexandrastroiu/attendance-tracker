@@ -9,6 +9,7 @@ session_start();
 
 
 try {
+    // Query to fetch information for all users (sorted by username)
     $users = $conn->prepare('
  SELECT user_id, username, user_email, user_role
  FROM Users 
@@ -22,5 +23,3 @@ try {
 } catch (Exception $e) {
     echo json_encode(["error" => $e->getMessage()]);
 }
-
-?>

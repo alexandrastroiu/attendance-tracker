@@ -1,4 +1,6 @@
 <?php
+// Returns all courses for logged in teacher, with the number of enrolled stduents and number of sessions per semester in JSON format.
+
 header("Access-Control-Allow-Origin: http://localhost:3000");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Credentials: true");
@@ -8,8 +10,9 @@ require_once __DIR__ . '/../../config/dbconnect.php';
 session_start();
 
 try {
+    // Validate user is logged in
     if (!isset($_SESSION['user_id'])) {
-        echo json_encode(["error" => "Notlogged in"]);
+        echo json_encode(["error" => "Not logged in"]);
         exit;
     }
 
@@ -22,6 +25,7 @@ SELECT teacher_id FROM Teachers WHERE user_id = :user_id LIMIT 1
     $teacherQuery->execute();
     $teacher = $teacherQuery->fetch(PDO::FETCH_ASSOC);
 
+    // Validate user role of logged in user is teacher
     if (!$teacher) {
         echo json_encode(["error" => "Teacher not found"]);
         exit;
@@ -53,4 +57,3 @@ WHERE C.teacher_id = :teacher_id
 } catch (Exception $e) {
     echo json_encode(["error" => $e->getMessage()]);
 }
-?>

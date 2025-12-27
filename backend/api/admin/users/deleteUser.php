@@ -150,7 +150,7 @@ try {
         }
     }
 
-    // Delete the user form the database
+    // Delete the user from the database
     $conn->prepare('
     DELETE FROM Users
     WHERE user_id = :id
@@ -168,5 +168,3 @@ try {
     }
     echo json_encode(['error' => $e->getMessage()]);
 }
-
-?>

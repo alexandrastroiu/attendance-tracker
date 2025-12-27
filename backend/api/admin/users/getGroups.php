@@ -8,6 +8,7 @@ require_once __DIR__ . '/../../../config/dbconnect.php';
 session_start();
 
 try {
+    // Query to fetch data about all student groups (sorted by group name)
     $studentGroups = $conn->prepare("
     SELECT group_id, group_name
     FROM Student_Groups
@@ -20,4 +21,3 @@ try {
 } catch (Exception $e) {
     echo json_encode(["error" => $e->getMessage()]);
 }
-?>

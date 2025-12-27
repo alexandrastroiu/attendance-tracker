@@ -1,4 +1,6 @@
 <?php
+// Returns a list of attendance records for the selected course session in JSON format.
+
 header("Access-Control-Allow-Origin: http://localhost:3000");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Credentials: true");
@@ -8,7 +10,7 @@ require_once __DIR__ . '/../../config/dbconnect.php';
 session_start();
 
 try {
-    // Validate user
+    // Validate user is logged in
     if (!isset($_SESSION['user_id'])) {
         echo json_encode(["error" => "Not logged in"]);
         exit;
@@ -17,6 +19,7 @@ try {
     $user_id = intval($_SESSION["user_id"]);
     $session_id = isset($_GET["session_id"]) ? intval($_GET["session_id"]) : null;
 
+    // Validate session was selected from frontend
     if (!$session_id) {
         echo json_encode(["error" => "Session is required"]);
         exit;
@@ -31,6 +34,7 @@ WHERE user_id = :user_id
     $teacherQuery->execute();
     $teacher = $teacherQuery->fetch(PDO::FETCH_ASSOC);
 
+    // Validate logged in user is a teacher
     if (!$teacher) {
         echo json_encode(["error" => "Teacher not found"]);
         exit;
@@ -78,4 +82,3 @@ ORDER BY S.last_name
 } catch (Exception $e) {
     echo json_encode(["error" => $e->getMessage()]);
 }
-?>

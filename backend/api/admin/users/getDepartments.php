@@ -8,6 +8,7 @@ require_once __DIR__ . '/../../../config/dbconnect.php';
 session_start();
 
 try {
+    // Query to fetch data about all departments (sorted by department name)
     $departments = $conn->prepare("
     SELECT department_id, department_name
     FROM Departments
@@ -20,4 +21,3 @@ try {
 } catch (Exception $e) {
     echo json_encode(["error" => $e->getMessage()]);
 }
-?>
